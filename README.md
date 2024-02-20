@@ -21,5 +21,5 @@
 
 6. Install the requirements from requirements.txt
    ```bash
-   $ pip install -r requirements.txt
+   $ pip install -r backend/requirements.txt
    ```

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const post = () => {
+function MakePost() {
   const [title, setTitle] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -36,12 +36,10 @@ const post = () => {
     setBedBathStatus('');
     setPicLinks('');
     setOther('');
-  };
-
   }
 
   return (
-    <div>
+    <div class="post-form">
       <h2>Create a Sublease Post</h2>
       <form onMakePost={handleMakePost}>
         <label>
@@ -172,6 +170,6 @@ const post = () => {
       </form>
     </div>
   );
-};
+}
 
-export default post;
+export default MakePost;

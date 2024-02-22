@@ -2,32 +2,61 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
+html, body {
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+}
+
+.left-column,
+.right-column {
+  height: 100vh;
+  min-width: 200px; /* Adjust width as needed */
+  padding: 10px;
+}
+
+.center-column {
+  flex-grow: 1;
+  padding: 10px;
+  position: relative;
+}
+
+.filters {
+  background-color: #e5d0ff; /* Example background color */
+}
+
+.sorting {
+  background-color: #e5d0ff; /* Example background color */
+}
+
+.floating-button {
+  position: absolute;
+  bottom: 40px; /* Adjust as needed */
+  right: 20px; /* Adjust as needed */
+  padding: 10px 15px; /* Adjust padding to make the button bigger */
+  background-color: 	#FFF8C9;
+  color: #633d92;
+  border: none;
+  border-radius: 30px; /* Adjust border radius to make the edges rounded */
+  cursor: pointer;
+  font-size: 20px; /* Adjust font size if needed */
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  max-height: 100vh;
+  overflow-y: auto;
 }

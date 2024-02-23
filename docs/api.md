@@ -87,7 +87,7 @@ This API provides services related to dublease. The API allows for creating post
       "optional_tags": ["XX", "YY"],
       "prompt_question": "XX",
       "prompt_answer": "XX",
-      "id": 0,
+      "_id": 0,
       "date_posted": "datetime obj",
     },
       {
@@ -109,7 +109,7 @@ This API provides services related to dublease. The API allows for creating post
       "optional_tags": ["XX", "YY"],
       "prompt_question": "XX",
       "prompt_answer": "XX",
-      "id": 0,
+      "_id": 0,
       "date_posted": "datetime obj",
     }
   ]

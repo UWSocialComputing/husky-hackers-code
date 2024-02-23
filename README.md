@@ -23,3 +23,23 @@
    ```bash
    $ pip install -r backend/requirements.txt
    ```
+
+7. Make a copy of the example environment variables
+   ```bash
+   $ cp .env.example .env
+   ```
+
+8. Add your MongoDB username and password to the newly created .env file
+
+9. Setup the database using the following commands: 
+   ```bash
+   $ brew tap mongodb/brew
+   $ brew install mongodb-community
+   $ brew services start mongodb-community
+   $ python db.py
+   ```
+
+10. Run the API:
+   ```bash
+   $ python3 app.py
+   ```

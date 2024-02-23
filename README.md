@@ -36,7 +36,7 @@
    $ brew tap mongodb/brew
    $ brew install mongodb-community
    $ brew services start mongodb-community
-   $ python db.py
+   $ python backend/db.py
    ```
 
 10. Run the API:

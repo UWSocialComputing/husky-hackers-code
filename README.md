@@ -41,5 +41,5 @@
 
 10. Run the API:
    ```bash
-   $ python3 app.py
+   $ python3 backend/app.py
    ```

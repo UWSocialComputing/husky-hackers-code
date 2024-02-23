@@ -1,3 +1,53 @@
 .post-form{
-  width: 100px;
+  border-radius: 20px;
+  margin: 10px;
+  padding: 20px;
+  background-color: #dabcff;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px; 
+  text-align: center;
+}
+
+.expanded {
+  min-width: 400px;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px; 
+  text-align: center;
+}
+
+.title {
+  font-size: 15pt;
+  background-color: #bf8bff;
+  border-radius: 20px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+}
+
+
+.tag {
+  border-radius: 30px;
+  padding: 10px;
+  margin: 5px;
+  background-color: #bf8bff;
+  color: white;
+}
+
+.tagButton {
+  border-radius: 20px;
+  background-color: #bf8bff;
+  text-align: center;
+  padding: 10px;
+  margin-left: 300px;
+  margin-right: 300px;
 }

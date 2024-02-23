@@ -3,9 +3,11 @@ import React, {useState} from 'react';
 import Popup from "./components/popup";
 import MakePost from './components/makePost';
 import ListingPostCard from './components/listingPostCard';
+import { list } from 'postcss';
+import { calculateOverrideValues } from 'next/dist/server/font-utils';
 
 /* Dummy data for frontend styling work: */
-const listings = [
+var listings = [
   { 
     id: 1,
     title: "Room",
@@ -91,16 +93,21 @@ export default function Home() {
   const handleViewPostClose = () => {
     setViewingPost(null);
   }
+  
 
   return (
     <>
       {
         isMakingPost && (
           <Popup handleClose={handleMakePostClose}>
-            <MakePost/>
+            <MakePost
+              listings = {listings}
+              handleClose={handleMakePostClose}
+            />
           </Popup>
         )
       }
+      
 
       {
         viewingPost && (

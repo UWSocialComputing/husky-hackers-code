@@ -1,3 +1,5 @@
+const { list } = require("postcss");
+
 const baseURL = "http://127.0.0.1:5000"
 
 const RouteGenerator = {
@@ -32,10 +34,10 @@ async function POST (route, body) {
       const response = await fetch(route, {
           method: "POST",
           headers: {
-              "Content-Type": "application/json",
+              "Accept": "application/json",
+              "Content-Type": "application/json"
           },
           body: body ? body : "",
-          mode: 'no-cors' // For development
       });
       return await response.json();
   } catch (error) {
@@ -46,6 +48,7 @@ async function POST (route, body) {
 
 
 const makeListingPost = async (listingPost) => {
+
   return await POST(RouteGenerator.makeListingPost(), JSON.stringify(listingPost));
 }
 

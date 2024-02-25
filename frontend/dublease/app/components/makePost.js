@@ -70,41 +70,41 @@ function MakePost({handleClose}) {
           // Success status code
           // You can access the response data here, e.g., response.json()
           console.log("Request succeeded");
-          handleClose();
-
-          // Reset form fields    
-          setTitle('');
-          setDesc('');
-          setName('');
-          setEmail('');
-          setPhoneNum('');
-          setStartDate('');
-          setEndDate('');
-          setRent(parseFloat(''));
-          setNeighbordHood('');
-          setAddr('');
-          setNumMates(parseInt(''));
-          setMateGender('');
-          setBedStatus('');
-          setBathStatus('');
-          setPicLinks('');
-          setPromptQuestion('');
-          setPromptAnswer('');
-          setTags('')
-          setOther('');
 
         } else {
           // Error status code
           console.error("Request failed with status: " + response.status);
-          setError("Unable to Make Request" + response.message)
+          //setError("Unable to Make Request" + response.message + JSON.stringify(post))
         }
       } catch (error) {
         console.error('Error fetching data:', error);
-        setError(error.message)
+        //setError(error.message + JSON.stringify(post))
       }
     };
 
     sendPost();
+    handleClose();
+
+    // Reset form fields    
+    setTitle('');
+    setDesc('');
+    setName('');
+    setEmail('');
+    setPhoneNum('');
+    setStartDate('');
+    setEndDate('');
+    setRent(parseFloat(''));
+    setNeighbordHood('');
+    setAddr('');
+    setNumMates(parseInt(''));
+    setMateGender('');
+    setBedStatus('');
+    setBathStatus('');
+    setPicLinks('');
+    setPromptQuestion('');
+    setPromptAnswer('');
+    setTags('')
+    setOther('');
 
   }
 

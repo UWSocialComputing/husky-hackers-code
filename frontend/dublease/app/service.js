@@ -1,8 +1,7 @@
-
 const baseURL = "http://127.0.0.1:5000"
 
 const RouteGenerator = {
-  makeListingPost: (listingPost) => encodeURI(`${baseURL}/make_listing_post`),
+  makeListingPost: () => encodeURI(`${baseURL}/make_listing_post`),
   getListingPosts: () => encodeURI(`${baseURL}/view_listing_posts`),
   searchListingPosts: (filters) => encodeURI(`${baseURL}/<endpoint>`),
 
@@ -46,8 +45,8 @@ async function POST (route, body) {
 }
 
 
-const makeListingPost = async (...args) => {
-  return await POST(RouteGenerator.makeListingPost(...args.map(arg => arg.trim())));
+const makeListingPost = async (listingPost) => {
+  return await POST(RouteGenerator.makeListingPost(), JSON.stringify(listingPost));
 }
 
 const getListingPosts = async (...args) => {

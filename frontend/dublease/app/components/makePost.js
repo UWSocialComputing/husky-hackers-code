@@ -48,7 +48,7 @@ function MakePost({handleClose}) {
       "name": name,
       "email": email,
       "phone_number": phoneNum,
-      "start_date": "startDate",
+      "start_date": startDate,
       "end_date": endDate,
       "photos_link": picLinks,
       "rent": rent,
@@ -65,7 +65,7 @@ function MakePost({handleClose}) {
     
     const sendPost = async () => {
       try {
-        const response = await makeListingPost(JSON.stringify(post))
+        const response = await makeListingPost(post)
         if (response.status >= 200 && response.status < 300) {
           // Success status code
           // You can access the response data here, e.g., response.json()
@@ -80,10 +80,10 @@ function MakePost({handleClose}) {
           setPhoneNum('');
           setStartDate('');
           setEndDate('');
-          setRent('');
+          setRent(parseFloat(''));
           setNeighbordHood('');
           setAddr('');
-          setNumMates('');
+          setNumMates(parseInt(''));
           setMateGender('');
           setBedStatus('');
           setBathStatus('');
@@ -96,10 +96,11 @@ function MakePost({handleClose}) {
         } else {
           // Error status code
           console.error("Request failed with status: " + response.status);
-          setError("Unable to Make Request")
+          setError("Unable to Make Request" + response.message)
         }
       } catch (error) {
         console.error('Error fetching data:', error);
+        setError(error.message)
       }
     };
 

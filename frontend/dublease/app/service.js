@@ -1,14 +1,14 @@
 
-const baseURL = "<base url here>"
+const baseURL = "http://127.0.0.1:5000"
 
 const RouteGenerator = {
-  makeListingPost: (listingPost) => encodeURI(`${baseURL}/<endpoint>?listingPost=${listingPost}`),
-  getListingPosts: () => encodeURI(`${baseURL}/<endpoint>`),
-  searchListingPosts: (filters) => encodeURI(`${baseURL}/<endpoint>?filters=${filters}`),
+  makeListingPost: (listingPost) => encodeURI(`${baseURL}/<endpoint>`),
+  getListingPosts: () => encodeURI(`${baseURL}/view_listing_posts`),
+  searchListingPosts: (filters) => encodeURI(`${baseURL}/<endpoint>`),
 
   makeTenantPost: (tenantPost) => encodeURI(`${baseURL}/<endpoint>`),
   getTenantPosts: () => encodeURI(`${baseURL}/<endpoint>`),
-  searchTenantPosts: (filters) => encodeURI(`${baseURL}/<endpoint>?filters=${filters}`)
+  searchTenantPosts: (filters) => encodeURI(`${baseURL}/<endpoint>`)
 }
 
 const GET = async (route) => {
@@ -18,7 +18,7 @@ const GET = async (route) => {
           method: "GET",
           headers: {
               "Content-Type": "application/json",
-          },
+          }
       });
       return await response.json();
   } catch (error) {
@@ -35,7 +35,8 @@ async function POST (route, body) {
           headers: {
               "Content-Type": "application/json",
           },
-          body: body ? body : ""
+          body: body ? body : "",
+          mode: 'no-cors' // For development
       });
       return await response.json();
   } catch (error) {
@@ -44,17 +45,6 @@ async function POST (route, body) {
   }
 }
 
-/* example call to enpoints using below functions:
-import makeListingPost, getListingPosts from '../services';
-let listingPostsCall = await getListingPosts();
-if (listingPostsCall.success) {
-  listingPostJSON = listingPost.data
-}
-
-listingPost = {"<JSON or some map object with listing info>"}
-const response = await makeListingPost(listingPost);
-if (response && response.success) {} 
-*/
 
 const makeListingPost = async (...args) => {
   return await POST(RouteGenerator.makeListingPost(...args.map(arg => arg.trim())));
@@ -80,3 +70,7 @@ const searchTenantPosts = async (...args) => {
   return await GET(RouteGenerator.searchTenantPosts(...args.map(arg => arg.trim())));
 }
 
+module.exports = {
+  makeListingPost, getListingPosts, searchListingPosts,
+  makeTenantPost, getTenantPosts, searchListingPosts
+}

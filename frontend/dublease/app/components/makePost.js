@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import './makePost.css'
+import { makeListingPost } from '../service';
 
-function MakePost({listings, handleClose}) {
+function MakePost({handleClose}) {
   const [title, setTitle] = useState('');
+  const [desc, setDesc] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phoneNum, setPhoneNum] = useState('');
@@ -17,6 +19,9 @@ function MakePost({listings, handleClose}) {
   const [bathStatus, setBathStatus] = useState('');
   const [picLinks, setPicLinks] = useState('');
   const [other, setOther] = useState('');
+  const [promptQuestion, setPromptQuestion] = useState('');
+  const [promptAnswer, setPromptAnswer] = useState('');
+  const [tags, setTags] = useState('');
   const [error, setError] = useState('');
 
   const handleMakePost = (e) => {
@@ -24,39 +29,64 @@ function MakePost({listings, handleClose}) {
     console.log('Creating post', { title, name, email, phoneNum, startDate, endDate, rent, neighborhood, addr, numMates, mateGender, bedStatus, bathStatus, picLinks, other });
     
     if (!title || !name || !email || !phoneNum || !startDate || !endDate || !rent || !neighborhood 
-      || !addr || !numMates || !mateGender || !bedStatus || !bathStatus) {
+      || !addr || !numMates || !mateGender || !bedStatus || !bathStatus || !desc) {
       setError('Please fill out all required fields.');
       return;
     } else {
       setError('');
       // Handle form submission
     }
-    const post = { 
-      title: title,
-      name: name,
-      email: email,
-      phoneNum: phoneNum,
-      startDate: startDate,
-      endDate: endDate,
-      rent: rent,
-      neighborhood: neighborhood,
-      addr: addr,
-      numMates: numMates,
-      mateGender: mateGender,
-      bedStatus: bedStatus,
-      bathStatus: bathStatus,
-      picLinks: picLinks,
-      other: other
-    }
-    
-    if (Array.isArray(listings)) {
-      listings.push(post);
+
+    if (tags.length > 0) {
+      let formattedTags = tags.split(',')
+      setTags(formattedTags);
     }
 
-    handleClose();
+    const post = {
+      "title": title,
+      "description": desc,
+      "name": name,
+      "email": email,
+      "phone_number": phoneNum,
+      "start_date": startDate,
+      "end_date": endDate,
+      "photos_link": picLinks,
+      "rent": rent,
+      "neighborhood": neighborhood,
+      "address": addr,
+      "number_of_roommates": numMates,
+      "roommate_gender": mateGender,
+      "bedroom_status": bedStatus,
+      "bathroom_status": bathStatus,
+      "optional_tags": tags,
+      "prompt_question": promptQuestion,
+      "prompt_answer": promptAnswer,
+    }
+    
+    const sendPost = async () => {
+      try {
+        const response = await makeListingPost(post)
+        if (response.status >= 200 && response.status < 300) {
+          // Success status code
+          // You can access the response data here, e.g., response.json()
+          console.log("Request succeeded");
+          handleClose();
+        } else {
+          // Error status code
+          console.error("Request failed with status: " + response.status);
+          setError("Unable to Make Request")
+          handleClose();
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    sendPost();
 
     // Reset form fields    
     setTitle('');
+    setDesc('');
     setName('');
     setEmail('');
     setPhoneNum('');
@@ -70,6 +100,9 @@ function MakePost({listings, handleClose}) {
     setBedStatus('');
     setBathStatus('');
     setPicLinks('');
+    setPromptQuestion('');
+    setPromptAnswer('');
+    setTags('')
     setOther('');
   }
 
@@ -77,7 +110,7 @@ function MakePost({listings, handleClose}) {
     <div class="post-form">
       <div className="title"><strong>{"Create a Sublease Post"}</strong></div>
       <form>
-      <div style={{ marginBottom: '10px' }}>
+      <div style={{ marginBottom: '5px' }}>
           <label>Title: </label>
           <input
             type="text"
@@ -87,7 +120,17 @@ function MakePost({listings, handleClose}) {
             required
           />
         </div>
-        <div style={{ marginBottom: '10px' }}>
+        <div style={{ marginBottom: '5px' }}>
+          <label>Description: </label>
+          <input
+            type="text"
+            value={desc}
+            onChange={(e) => setDesc(e.target.value)}
+            style={{ color: 'black' }}
+            required
+          />
+        </div>
+        <div style={{ marginBottom: '5px' }}>
           <label>Name: </label>
           <input
             type="text"
@@ -97,7 +140,7 @@ function MakePost({listings, handleClose}) {
             required
           />
         </div>
-        <div style={{ marginBottom: '10px' }}>
+        <div style={{ marginBottom: '5px' }}>
           <label>Email: </label>
           <input
             type="text"
@@ -107,7 +150,7 @@ function MakePost({listings, handleClose}) {
             required
           />
         </div>
-        <div style={{ marginBottom: '10px' }}>
+        <div style={{ marginBottom: '5px' }}>
           <label>Phone Number: </label>
           <input
             type="number"
@@ -117,7 +160,7 @@ function MakePost({listings, handleClose}) {
             required
           />
         </div>
-        <div style={{ marginBottom: '10px' }}>
+        <div style={{ marginBottom: '5px' }}>
           <label>Start Date: </label>
           <input
             type="date"
@@ -127,7 +170,7 @@ function MakePost({listings, handleClose}) {
             required
           />
         </div>
-        <div style={{ marginBottom: '10px' }}>
+        <div style={{ marginBottom: '5px' }}>
           <label>End Date: </label>
           <input
             type="date"
@@ -137,7 +180,7 @@ function MakePost({listings, handleClose}) {
             required
           />
         </div>
-        <div style={{ marginBottom: '10px' }}>
+        <div style={{ marginBottom: '5px' }}>
           <label>Rent Price (per month): </label>
           <input
             type="number"
@@ -154,7 +197,7 @@ function MakePost({listings, handleClose}) {
             required
           />
         </div>
-        <div style={{ marginBottom: '10px' }}>
+        <div style={{ marginBottom: '5px' }}>
           <label>Neighborhood: </label>
           <select
             value={neighborhood}
@@ -171,7 +214,7 @@ function MakePost({listings, handleClose}) {
             <option value="Cap Hill/Downtown">Cap Hill/Downtown</option>
           </select>
         </div>
-        <div style={{ marginBottom: '10px' }}>
+        <div style={{ marginBottom: '5px' }}>
           <label>Address: </label>
           <input
             type="text"
@@ -181,7 +224,7 @@ function MakePost({listings, handleClose}) {
             required
           />
         </div>
-        <div style={{ marginBottom: '10px' }}>
+        <div style={{ marginBottom: '5px' }}>
           <label>Number of Roommates: </label>
           <input
             type="number"
@@ -198,7 +241,7 @@ function MakePost({listings, handleClose}) {
             required
           />
         </div>
-        <div style={{ marginBottom: '10px' }}>
+        <div style={{ marginBottom: '5px' }}>
           <label>Gender of Roommates: </label>
           <select
             type="text"
@@ -213,7 +256,7 @@ function MakePost({listings, handleClose}) {
             <option value="All Men">All Men</option>
           </select>
         </div>
-        <div style={{ marginBottom: '10px' }}>
+        <div style={{ marginBottom: '5px' }}>
           <label>Bedroom Status: </label>
           <select
             type="text"
@@ -227,7 +270,7 @@ function MakePost({listings, handleClose}) {
             <option value="Shared">Shared</option>
           </select>
         </div>
-        <div style={{ marginBottom: '10px' }}>
+        <div style={{ marginBottom: '5px' }}>
           <label>Bathroom Status: </label>
           <select
             type="text"
@@ -241,7 +284,7 @@ function MakePost({listings, handleClose}) {
             <option value="Shared">Shared</option>
           </select>
         </div>
-        <div style={{ marginBottom: '10px' }}>
+        <div style={{ marginBottom: '5px' }}>
           <label>Links to Pictures of Residence: </label>
           <input
             type="text"
@@ -250,7 +293,34 @@ function MakePost({listings, handleClose}) {
             style={{ color: 'black' }}
           />
         </div>
-        <div style={{ marginBottom: '10px' }}>
+        <div style={{ marginBottom: '5px' }}>
+          <label>Prompt Question: </label>
+          <input
+            type="text"
+            value={promptQuestion}
+            onChange={(e) => setPromptQuestion(e.target.value)}
+            style={{ color: 'black' }}
+          />
+        </div>
+        <div style={{ marginBottom: '5px' }}>
+          <label>Prompt Answer: </label>
+          <input
+            type="text"
+            value={promptAnswer}
+            onChange={(e) => setPromptAnswer(e.target.value)}
+            style={{ color: 'black' }}
+          />
+        </div>
+        <div style={{ marginBottom: '5px' }}>
+          <label>Tags (seperate tags with a comma): </label>
+          <input
+            type="text"
+            value={tags}
+            onChange={(e) => setTags(e.target.value)}
+            style={{ color: 'black' }}
+          />
+        </div>
+        <div style={{ marginBottom: '5px' }}>
           <label>Other Details: </label>
           <input
             type="text"

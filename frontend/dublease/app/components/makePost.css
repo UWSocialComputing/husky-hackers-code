@@ -1,7 +1,7 @@
 .post-form{
   border-radius: 20px;
   margin: 10px;
-  padding: 20px;
+  padding: 10px;
   background-color: #dabcff;
   color: white;
   display: flex;
@@ -9,6 +9,8 @@
   justify-content: center;
   gap: 20px; 
   text-align: center;
+  overflow-y: auto;
+  max-height: 1000px;
 }
 
 .expanded {
@@ -19,12 +21,14 @@
   justify-content: center;
   gap: 20px; 
   text-align: center;
+  overflow-y: auto;
 }
 
 .title {
   font-size: 15pt;
   background-color: #bf8bff;
   border-radius: 20px;
+  overflow-y: auto;
 }
 
 .tags {

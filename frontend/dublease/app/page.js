@@ -46,7 +46,6 @@ export default function Home() {
         isMakingPost && (
           <Popup handleClose={handleMakePostClose}>
             <MakePost
-              listings = {listings}
               handleClose={handleMakePostClose}
             />
           </Popup>

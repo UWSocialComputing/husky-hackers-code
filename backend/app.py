@@ -1,8 +1,10 @@
 import json
 from flask import Flask, Response, request
+from flask_cors import CORS  # Import CORS from flask_cors
 import db
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
 @app.route('/')
 def index():

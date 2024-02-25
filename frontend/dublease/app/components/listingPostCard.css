@@ -4,9 +4,9 @@
   border-radius: 20px;
   margin: 10px;
   padding: 20px;
-  background-color: #dabcff;
-  color: white;
+  background-color: #e5d0ff;
   display: flex;
+  color: #6b5786;
   flex-direction: column;
   justify-content: center;
   gap: 20px; 
@@ -23,8 +23,14 @@
   text-align: center;
 }
 
-.title {
+.listing-title {
   font-size: 15pt;
+  font-weight: bold;
+  border-radius: 30px;
+  padding: 10px;
+  margin: 5px;
+  background-color: #bf8bff;
+  color: white;
 }
 
 .tags {
@@ -39,6 +45,30 @@
   border-radius: 30px;
   padding: 10px;
   margin: 5px;
-  background-color: #bf8bff;
+  background-color: #cca3ff;
+  color: white;
+}
+
+.opt-tag {
+  border-radius: 30px;
+  padding: 10px;
+  margin: 5px;
+  background-color: #dabcff;
+  color: white;
+}
+
+.description {
+  border-radius: 30px;
+  padding: 10px;
+  margin: 5px;
+  background-color: #FFF8C9;
+  color: #6b5786;
+}
+
+.fun-fact {
+  border-radius: 30px;
+  padding: 10px;
+  margin: 5px;
+  background-color: #cca3ff;
   color: white;
 }

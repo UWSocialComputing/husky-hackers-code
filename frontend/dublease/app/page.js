@@ -1,6 +1,5 @@
 'use client';
 import React, {useState, useEffect} from 'react';
-import nameImage from "../assets/name.png";
 import Popup from "./components/popup";
 import MakePost from './components/makePost';
 import ListingPostCard from './components/listingPostCard';
@@ -16,13 +15,14 @@ export default function Home() {
       try {
         const response = await getListingPosts()
         setListingPosts(response);
+        console.log(response)
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
     fetchData(); // Call the async function
-  }, []); 
+  }, [isMakingPost]); 
 
   const handleMakePostClick = () => {
     setIsMakingPost(true);
@@ -71,7 +71,6 @@ export default function Home() {
         </div>
 
         <div className="center-column">
-          <img src={nameImage} alt="Dublease" />
           <div className="card-container">
             {
               listingPosts.map(listingPost => (
@@ -97,35 +96,3 @@ export default function Home() {
   );
 }
 
-/* 
-address
-: 
-"4345 University Way NE"
-bathroom_status
-: 
-"Private"
-bedroom_status
-: 
-"Private"
-created_at
-: 
-"2024-02-22 08:00:00"
-description
-: 
-"Beautiful studio for rent for the next six months"
-email
-: 
-"mikew@monstersu.edu"
-end_date
-: 
-"2024-09-01 08:00:00"
-name
-: 
-"Mike Wazowski"
-neighborhood
-: 
-"University District"
-number_of_roommates
-: 
-1
-*/

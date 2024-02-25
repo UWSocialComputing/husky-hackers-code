@@ -13,7 +13,6 @@ const RouteGenerator = {
 
 const GET = async (route) => {
   console.log("DOING GET REQUEST WITH ROUTE", route)
-  print("came here");
   try {
       const response = await fetch(route, {
           method: "GET",
@@ -48,7 +47,6 @@ async function POST (route, body) {
 
 
 const makeListingPost = async (...args) => {
-  console.log("Came to makeListingPost")
   return await POST(RouteGenerator.makeListingPost(...args.map(arg => arg.trim())));
 }
 

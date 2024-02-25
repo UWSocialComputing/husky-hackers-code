@@ -10,10 +10,10 @@ function MakePost({handleClose}) {
   const [phoneNum, setPhoneNum] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [rent, setRent] = useState('');
+  const [rent, setRent] = useState(parseFloat(''));
   const [neighborhood, setNeighbordHood] = useState('');
   const [addr, setAddr] = useState('');
-  const [numMates, setNumMates] = useState('');
+  const [numMates, setNumMates] = useState(parseInt(''));
   const [mateGender, setMateGender] = useState('');
   const [bedStatus, setBedStatus] = useState('');
   const [bathStatus, setBathStatus] = useState('');
@@ -48,7 +48,7 @@ function MakePost({handleClose}) {
       "name": name,
       "email": email,
       "phone_number": phoneNum,
-      "start_date": startDate,
+      "start_date": "startDate",
       "end_date": endDate,
       "photos_link": picLinks,
       "rent": rent,
@@ -65,17 +65,38 @@ function MakePost({handleClose}) {
     
     const sendPost = async () => {
       try {
-        const response = await makeListingPost(post)
+        const response = await makeListingPost(JSON.stringify(post))
         if (response.status >= 200 && response.status < 300) {
           // Success status code
           // You can access the response data here, e.g., response.json()
           console.log("Request succeeded");
           handleClose();
+
+          // Reset form fields    
+          setTitle('');
+          setDesc('');
+          setName('');
+          setEmail('');
+          setPhoneNum('');
+          setStartDate('');
+          setEndDate('');
+          setRent('');
+          setNeighbordHood('');
+          setAddr('');
+          setNumMates('');
+          setMateGender('');
+          setBedStatus('');
+          setBathStatus('');
+          setPicLinks('');
+          setPromptQuestion('');
+          setPromptAnswer('');
+          setTags('')
+          setOther('');
+
         } else {
           // Error status code
           console.error("Request failed with status: " + response.status);
           setError("Unable to Make Request")
-          handleClose();
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -84,26 +105,6 @@ function MakePost({handleClose}) {
 
     sendPost();
 
-    // Reset form fields    
-    setTitle('');
-    setDesc('');
-    setName('');
-    setEmail('');
-    setPhoneNum('');
-    setStartDate('');
-    setEndDate('');
-    setRent('');
-    setNeighbordHood('');
-    setAddr('');
-    setNumMates('');
-    setMateGender('');
-    setBedStatus('');
-    setBathStatus('');
-    setPicLinks('');
-    setPromptQuestion('');
-    setPromptAnswer('');
-    setTags('')
-    setOther('');
   }
 
   return (
@@ -188,7 +189,7 @@ function MakePost({handleClose}) {
             onChange={(e) => {
               const value = e.target.value;
               if (value === '' || (value >= 0 && value % 1 === 0)) {
-                setRent(value);
+                setRent(parseFloat(value));
               } else {
                 setError("Rent must be a non-negative integer")
               }
@@ -232,7 +233,7 @@ function MakePost({handleClose}) {
             onChange={(e) => {
               const value = e.target.value;
               if (value === '' || (value >= 0 && value % 1 === 0)) {
-                setNumMates(value);
+                setNumMates(parseInt(value));
               } else {
                 setError("Number of Mates must be a non-negative integer")
               }

@@ -4,17 +4,33 @@
   padding: 10px;
   background-color: #dabcff;
   color: white;
-  display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 20px; 
   text-align: center;
   overflow-y: auto;
   max-height: 1000px;
+  display: flex;
+  gap: 20px;
+}
+
+form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0px;
+}
+
+h3 {
+  display: inline-block;
+  color: white
+
 }
 
 .input-field {
   margin-bottom: 5px;
+  display: flex;
+  justify-content: center;
+  flex-direction: columnn;
+  align-items: center;
 }
 
 .text-input {
@@ -65,4 +81,7 @@
   padding: 10px;
   margin-left: 300px;
   margin-right: 300px;
+  grid-column: span 2;
+
 }
+

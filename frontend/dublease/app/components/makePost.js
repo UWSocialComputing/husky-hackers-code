@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
 import './makePost.css'
 import { makeListingPost } from '../service';
 
@@ -74,7 +76,7 @@ function MakePost({handleClose}) {
 
         } else {
           // Error status code
-          console.error("Request failed with status: " + response.status);
+          console.error("Request failed with status" + response.status);
           //setError("Unable to Make Request" + response.message + JSON.stringify(post))
         }
       } catch (error) {
@@ -113,8 +115,8 @@ function MakePost({handleClose}) {
     <div class="post-form">
       <div className="title"><strong>{"Create a Sublease Post"}</strong></div>
       <form>
+        <h3><strong>Title*</strong></h3>
         <div className="input-field">
-          <label>Title: </label>
           <input className='text-input'
             type="text"
             value={title}
@@ -123,8 +125,8 @@ function MakePost({handleClose}) {
             required
           />
         </div>
+        <h3><strong>Description*</strong></h3>
         <div className="input-field">
-          <label>Description: </label>
           <input className='text-input'
             type="text"
             value={desc}
@@ -133,8 +135,8 @@ function MakePost({handleClose}) {
             required
           />
         </div>
+        <h3><strong>Name*</strong></h3>
         <div className="input-field">
-          <label>Name: </label>
           <input className='text-input'
             type="text"
             value={name}
@@ -143,8 +145,8 @@ function MakePost({handleClose}) {
             required
           />
         </div>
+        <h3><strong>Email*</strong></h3>
         <div className="input-field">
-          <label>Email: </label>
           <input className='text-input'
             type="text"
             value={email}
@@ -153,18 +155,19 @@ function MakePost({handleClose}) {
             required
           />
         </div>
+        <h3><strong>Phone Number*</strong></h3>
         <div className="input-field">
-          <label>Phone Number: </label>
-          <input className='text-input'
-            type="number"
-            value={phoneNum}
-            onChange={(e) => setPhoneNum(e.target.valueAsNumber || e.target.value)}
+          <PhoneInput
             placeholder="123-456-7890"
+            country={"us"}
+            value={phoneNum}
+            onChange={setPhoneNum}
+            style={{ color: 'black', width: "230px", margin: 'auto'}}
             required
           />
         </div>
+        <h3><strong>Start Date*</strong></h3>
         <div className="input-field">
-          <label>Start Date: </label>
           <input className='text-input'
             type="date"
             value={startDate}
@@ -173,8 +176,8 @@ function MakePost({handleClose}) {
             required
           />
         </div>
+        <h3><strong>End Date*</strong></h3>
         <div className="input-field">
-          <label>End Date: </label>
           <input className='text-input'
             type="date"
             value={endDate}
@@ -182,8 +185,8 @@ function MakePost({handleClose}) {
             required
           />
         </div>
+        <h3><strong>Rent Price (per month)*</strong></h3>
         <div className="input-field">
-          <label>Rent Price (per month): </label>
           <input className='text-input'
             type="number"
             value={rent}
@@ -199,11 +202,12 @@ function MakePost({handleClose}) {
             required
           />
         </div>
+        <h3><strong>Neighborhood*</strong></h3>
         <div className="input-field">
-          <label>Neighborhood: </label>
           <select
             value={neighborhood}
             onChange={(e) => setNeighbordHood(e.target.value)}
+            style={{ color: 'black' }}
             required
           >
             <option value=""></option>
@@ -215,8 +219,8 @@ function MakePost({handleClose}) {
             <option value="Cap Hill/Downtown">Cap Hill/Downtown</option>
           </select>
         </div>
+        <h3><strong>Address*</strong></h3>
         <div className="input-field">
-          <label>Address: </label>
           <input className='text-input'
             type="text"
             value={addr}
@@ -225,8 +229,8 @@ function MakePost({handleClose}) {
             required
           />
         </div>
+        <h3><strong>Number of Roommates*</strong></h3>
         <div className="input-field">
-          <label>Number of Roommates: </label>
           <input className='text-input'
             type="number"
             value={numMates}
@@ -242,12 +246,13 @@ function MakePost({handleClose}) {
             required
           />
         </div>
+        <h3><strong>Gender of Roommates*</strong></h3>
         <div className="input-field">
-          <label>Gender of Roommates: </label>
           <select
             type="text"
             value={mateGender}
             onChange={(e) => setMateGender(e.target.value)}
+            style={{ color: 'black' }}
             required
             >
             <option value=""></option>
@@ -257,12 +262,13 @@ function MakePost({handleClose}) {
             <option value="N/A">All Men</option>
           </select>
         </div>
+        <h3><strong>Bedroom Status*</strong></h3>
         <div className="input-field">
-          <label>Bedroom Status: </label>
           <select
             type="text"
             value={bedStatus}
             onChange={(e) => setBedStatus(e.target.value)}
+            style={{ color: 'black' }}
             required
             >
             <option value=""></option>
@@ -270,12 +276,13 @@ function MakePost({handleClose}) {
             <option value="Shared">Shared</option>
           </select>
         </div>
+        <h3><strong>Bathroom Status*</strong></h3>
         <div className="input-field">
-          <label>Bathroom Status: </label>
           <select
             type="text"
             value={bathStatus}
             onChange={(e) => setBathStatus(e.target.value)}
+            style={{ color: 'black' }}
             required
             >
             <option value=""></option>
@@ -283,8 +290,8 @@ function MakePost({handleClose}) {
             <option value="Shared">Shared</option>
           </select>
         </div>
+        <h3><strong>Links to Pictures of Residence</strong></h3>
         <div className="input-field">
-          <label>Links to Pictures of Residence: </label>
           <input className='text-input'
             type="text"
             value={picLinks}
@@ -292,8 +299,8 @@ function MakePost({handleClose}) {
             placeholder="wwww.pics.com"
           />
         </div>
+        <h3><strong>Prompt Question</strong></h3>
         <div className="input-field">
-          <label>Prompt Question: </label>
           <input className='text-input'
             type="text"
             value={promptQuestion}
@@ -301,8 +308,8 @@ function MakePost({handleClose}) {
             placeholder="What is your favorite animal?"
           />
         </div>
+        <h3><strong>Prompt Answer</strong></h3>
         <div className="input-field">
-          <label>Prompt Answer: </label>
           <input className='text-input'
             type="text"
             value={promptAnswer}
@@ -310,8 +317,8 @@ function MakePost({handleClose}) {
             placeholder="Cats!"
           />
         </div>
+        <h3><strong>Tags (seperate tags with commas)</strong></h3>
         <div className="input-field">
-          <label>Tags (seperate tags with commas): </label>
           <input className='text-input'
             type="text"
             value={tags}
@@ -319,8 +326,8 @@ function MakePost({handleClose}) {
             placeholder="pet-friendly, non-smoking"
           />
         </div>
+        <h3><strong>Other Details</strong></h3>
         <div className="input-field">
-          <label>Other Details: </label>
           <input className='text-input'
             type="text"
             value={other}
@@ -328,14 +335,14 @@ function MakePost({handleClose}) {
             placeholder="Open to negotiate rent price"
           />  
         </div>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        <div className="tagButton">
+        {error && <p style={{ color: 'red' }}>{<strong>error</strong>}</p>}
+      </form>
+      <div className="tagButton">
           <button type="button"
           onClick= {handleMakePost}>
           <strong>Create Post</strong>
           </button>
-        </div>
-      </form>
+      </div>
     </div>
   );
 }

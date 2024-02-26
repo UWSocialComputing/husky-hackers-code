@@ -71,7 +71,7 @@ function ListingPostCard({ listingPost, handleClick, expanded, content }) {
                   listingPost.email && (<div><strong>email:</strong> {listingPost.email}</div>)
                 }
                 {
-                  listingPost.phone_number && (<div><strong>email:</strong> {listingPost.phone_number}</div>)
+                  listingPost.phone_number && (<div><strong>phone number:</strong> {listingPost.phone_number}</div>)
                 }
             </div>
             {

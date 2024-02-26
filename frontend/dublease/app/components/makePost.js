@@ -39,9 +39,10 @@ function MakePost({handleClose}) {
       // Handle form submission
     }
 
+    let formattedTags = []
     if (tags.length > 0) {
-      let formattedTags = tags.split(',')
-      setTags(formattedTags);
+      formattedTags = tags.split(',')
+      console.log(formattedTags)
     }
 
     const post = {
@@ -60,7 +61,7 @@ function MakePost({handleClose}) {
       "roommate_gender": mateGender,
       "bedroom_status": bedStatus,
       "bathroom_status": bathStatus,
-      "optional_tags": tags,
+      "optional_tags": formattedTags,
       "prompt_question": promptQuestion,
       "prompt_answer": promptAnswer,
       "other_details": other
@@ -108,7 +109,6 @@ function MakePost({handleClose}) {
     setPromptAnswer('');
     setTags('')
     setOther('');
-
   }
 
   return (

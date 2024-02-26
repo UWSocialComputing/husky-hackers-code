@@ -61,6 +61,7 @@ function MakePost({handleClose}) {
       "optional_tags": tags,
       "prompt_question": promptQuestion,
       "prompt_answer": promptAnswer,
+      "other_details": other
     }
     
     const sendPost = async () => {

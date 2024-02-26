@@ -90,20 +90,3 @@ function ListingPostCard({ listingPost, handleClick, expanded, content }) {
 }
 
 export default ListingPostCard;
-
-{
-  /*
-{
-
-
-  "photos_link": "XX",
-
-  
-
-
-  "prompt_question": "XX",
-  "prompt_answer": "XX",
-
-}
-  */
-}

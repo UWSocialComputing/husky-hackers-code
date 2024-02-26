@@ -48,7 +48,6 @@ async function POST (route, body) {
 
 
 const makeListingPost = async (listingPost) => {
-
   return await POST(RouteGenerator.makeListingPost(), JSON.stringify(listingPost));
 }
 

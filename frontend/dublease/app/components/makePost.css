@@ -13,6 +13,15 @@
   max-height: 1000px;
 }
 
+.input-field {
+  margin-bottom: 5px;
+}
+
+.text-input {
+  color: black;
+  width: 230px
+}
+
 .expanded {
   min-width: 400px;
   color: black;
@@ -26,9 +35,10 @@
 
 .title {
   font-size: 15pt;
-  background-color: #bf8bff;
   border-radius: 20px;
   overflow-y: auto;
+  color: #6b5786;
+  background-color: #FFF8C9;
 }
 
 .tags {
@@ -49,7 +59,8 @@
 
 .tagButton {
   border-radius: 20px;
-  background-color: #bf8bff;
+  background-color: #FFF8C9;
+  color: #6b5786;
   text-align: center;
   padding: 10px;
   margin-left: 300px;

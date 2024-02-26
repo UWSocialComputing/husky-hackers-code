@@ -112,79 +112,78 @@ function MakePost({handleClose}) {
     <div class="post-form">
       <div className="title"><strong>{"Create a Sublease Post"}</strong></div>
       <form>
-      <div style={{ marginBottom: '5px' }}>
+        <div className="input-field">
           <label>Title: </label>
-          <input
+          <input className='text-input'
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            style={{ color: 'black' }}
+            placeholder="Studio with View"
             required
           />
         </div>
-        <div style={{ marginBottom: '5px' }}>
+        <div className="input-field">
           <label>Description: </label>
-          <input
+          <input className='text-input'
             type="text"
             value={desc}
             onChange={(e) => setDesc(e.target.value)}
-            style={{ color: 'black' }}
+            placeholder="Modern Studio with Scenery"
             required
           />
         </div>
-        <div style={{ marginBottom: '5px' }}>
+        <div className="input-field">
           <label>Name: </label>
-          <input
+          <input className='text-input'
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            style={{ color: 'black' }}
+            placeholder="Mike Wazowski"
             required
           />
         </div>
-        <div style={{ marginBottom: '5px' }}>
+        <div className="input-field">
           <label>Email: </label>
-          <input
+          <input className='text-input'
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            style={{ color: 'black' }}
+            placeholder="mikew@monsters.com"
             required
           />
         </div>
-        <div style={{ marginBottom: '5px' }}>
+        <div className="input-field">
           <label>Phone Number: </label>
-          <input
+          <input className='text-input'
             type="number"
             value={phoneNum}
             onChange={(e) => setPhoneNum(e.target.valueAsNumber || e.target.value)}
-            style={{ color: 'black' }}
+            placeholder="123-456-7890"
             required
           />
         </div>
-        <div style={{ marginBottom: '5px' }}>
+        <div className="input-field">
           <label>Start Date: </label>
-          <input
+          <input className='text-input'
             type="date"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
-            style={{ color: 'black' }}
+            placeholder="Mike Wazowski"
             required
           />
         </div>
-        <div style={{ marginBottom: '5px' }}>
+        <div className="input-field">
           <label>End Date: </label>
-          <input
+          <input className='text-input'
             type="date"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
-            style={{ color: 'black' }}
             required
           />
         </div>
-        <div style={{ marginBottom: '5px' }}>
+        <div className="input-field">
           <label>Rent Price (per month): </label>
-          <input
+          <input className='text-input'
             type="number"
             value={rent}
             onChange={(e) => {
@@ -195,16 +194,15 @@ function MakePost({handleClose}) {
                 setError("Rent must be a non-negative integer")
               }
             }}
-            style={{ color: 'black' }}
+            placeholder="1500"
             required
           />
         </div>
-        <div style={{ marginBottom: '5px' }}>
+        <div className="input-field">
           <label>Neighborhood: </label>
           <select
             value={neighborhood}
             onChange={(e) => setNeighbordHood(e.target.value)}
-            style={{ color: 'black' }}
             required
           >
             <option value=""></option>
@@ -216,19 +214,19 @@ function MakePost({handleClose}) {
             <option value="Cap Hill/Downtown">Cap Hill/Downtown</option>
           </select>
         </div>
-        <div style={{ marginBottom: '5px' }}>
+        <div className="input-field">
           <label>Address: </label>
-          <input
+          <input className='text-input'
             type="text"
             value={addr}
             onChange={(e) => setAddr(e.target.value)}
-            style={{ color: 'black' }}
+            placeholder="4345 University Way NE"
             required
           />
         </div>
-        <div style={{ marginBottom: '5px' }}>
+        <div className="input-field">
           <label>Number of Roommates: </label>
-          <input
+          <input className='text-input'
             type="number"
             value={numMates}
             onChange={(e) => {
@@ -239,32 +237,31 @@ function MakePost({handleClose}) {
                 setError("Number of Mates must be a non-negative integer")
               }
             }}
-            style={{ color: 'black' }}
+            placeholder="0"
             required
           />
         </div>
-        <div style={{ marginBottom: '5px' }}>
+        <div className="input-field">
           <label>Gender of Roommates: </label>
           <select
             type="text"
             value={mateGender}
             onChange={(e) => setMateGender(e.target.value)}
-            style={{ color: 'black' }}
             required
             >
             <option value=""></option>
             <option value="Mixed">Mixed</option>
             <option value="All Women">All Women</option>
             <option value="All Men">All Men</option>
+            <option value="N/A">All Men</option>
           </select>
         </div>
-        <div style={{ marginBottom: '5px' }}>
+        <div className="input-field">
           <label>Bedroom Status: </label>
           <select
             type="text"
             value={bedStatus}
             onChange={(e) => setBedStatus(e.target.value)}
-            style={{ color: 'black' }}
             required
             >
             <option value=""></option>
@@ -272,13 +269,12 @@ function MakePost({handleClose}) {
             <option value="Shared">Shared</option>
           </select>
         </div>
-        <div style={{ marginBottom: '5px' }}>
+        <div className="input-field">
           <label>Bathroom Status: </label>
           <select
             type="text"
             value={bathStatus}
             onChange={(e) => setBathStatus(e.target.value)}
-            style={{ color: 'black' }}
             required
             >
             <option value=""></option>
@@ -286,50 +282,50 @@ function MakePost({handleClose}) {
             <option value="Shared">Shared</option>
           </select>
         </div>
-        <div style={{ marginBottom: '5px' }}>
+        <div className="input-field">
           <label>Links to Pictures of Residence: </label>
-          <input
+          <input className='text-input'
             type="text"
             value={picLinks}
             onChange={(e) => setPicLinks(e.target.value)}
-            style={{ color: 'black' }}
+            placeholder="wwww.pics.com"
           />
         </div>
-        <div style={{ marginBottom: '5px' }}>
+        <div className="input-field">
           <label>Prompt Question: </label>
-          <input
+          <input className='text-input'
             type="text"
             value={promptQuestion}
             onChange={(e) => setPromptQuestion(e.target.value)}
-            style={{ color: 'black' }}
+            placeholder="What is your favorite animal?"
           />
         </div>
-        <div style={{ marginBottom: '5px' }}>
+        <div className="input-field">
           <label>Prompt Answer: </label>
-          <input
+          <input className='text-input'
             type="text"
             value={promptAnswer}
             onChange={(e) => setPromptAnswer(e.target.value)}
-            style={{ color: 'black' }}
+            placeholder="Cats!"
           />
         </div>
-        <div style={{ marginBottom: '5px' }}>
-          <label>Tags (seperate tags with a comma): </label>
-          <input
+        <div className="input-field">
+          <label>Tags (seperate tags with commas): </label>
+          <input className='text-input'
             type="text"
             value={tags}
             onChange={(e) => setTags(e.target.value)}
-            style={{ color: 'black' }}
+            placeholder="pet-friendly, non-smoking"
           />
         </div>
-        <div style={{ marginBottom: '5px' }}>
+        <div className="input-field">
           <label>Other Details: </label>
-          <input
+          <input className='text-input'
             type="text"
             value={other}
             onChange={(e) => setOther(e.target.value)}
-            style={{ color: 'black' }}
-          />
+            placeholder="Open to negotiate rent price"
+          />  
         </div>
         {error && <p style={{ color: 'red' }}>{error}</p>}
         <div className="tagButton">

@@ -29,6 +29,7 @@ This API provides services related to dublease. The API allows for creating post
   - `optional_tags` (list, optional): listing of strings of optional tags
   - `prompt_question` (string, optional): prompt question that is attached to the post
   - `prompt_answer` (string, optional): answer to the prompt
+  - `other_details` (string, optional): other details about the listing
 
 - **Request Example**:
   ```json
@@ -51,6 +52,7 @@ This API provides services related to dublease. The API allows for creating post
     "optional_tags": ["XX", "YY"],
     "prompt_question": "XX",
     "prompt_answer": "XX",
+    "other_details": "XX",
   }
 - **Response**:
     - Success: A message confirming the receipt of the request.
@@ -87,6 +89,7 @@ This API provides services related to dublease. The API allows for creating post
       "optional_tags": ["XX", "YY"],
       "prompt_question": "XX",
       "prompt_answer": "XX",
+      "other_details": "XX",
       "_id": 0,
       "date_posted": "datetime obj",
     },
@@ -109,6 +112,7 @@ This API provides services related to dublease. The API allows for creating post
       "optional_tags": ["XX", "YY"],
       "prompt_question": "XX",
       "prompt_answer": "XX",
+      "other_details": "XX",
       "_id": 0,
       "date_posted": "datetime obj",
     }

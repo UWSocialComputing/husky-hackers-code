@@ -51,7 +51,8 @@ def listing_post():
       bathroom_status=body.get('bathroom_status'),
       optional_tags=body.get('optional_tags'),
       prompt_question=body.get('prompt_question'),
-      prompt_answer=body.get('prompt_answer')
+      prompt_answer=body.get('prompt_answer'),
+      other_details=body.get('other_details')
    )
 
    return Response(response="listing post", status=200, content_type='application/json')

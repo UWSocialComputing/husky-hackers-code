@@ -1,8 +1,15 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
+If you haven't installed Next.js yet, you can install it locally in your project using npm or yarn. Run one of the following commands in your project directory:
 
-First, run the development server:
+```bash
+npm install next
+# or
+yarn add next
+```
+
+Next, run the development server:
 
 ```bash
 npm run dev

@@ -259,7 +259,7 @@ function MakePost({handleClose}) {
             <option value="Mixed">Mixed</option>
             <option value="All Women">All Women</option>
             <option value="All Men">All Men</option>
-            <option value="N/A">All Men</option>
+            <option value="N/A">N/A</option>
           </select>
         </div>
         <h3><strong>Bedroom Status*</strong></h3>

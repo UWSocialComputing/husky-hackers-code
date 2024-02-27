@@ -70,7 +70,7 @@ function MakePost({handleClose}) {
     const sendPost = async () => {
       try {
         const response = await makeListingPost(post)
-        if (response.status >= 200 && response.status < 300) {
+        if (response.status == 'listing post') {
           // Success status code
           // You can access the response data here, e.g., response.json()
           console.log("Request succeeded");

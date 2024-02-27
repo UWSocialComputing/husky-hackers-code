@@ -49,6 +49,10 @@ function ListingPostCard({ listingPost, handleClick, expanded, content }) {
               {
                 listingPost.photos_link && (<div><strong>photos</strong>: {listingPost.photos_link}</div>)
               }
+
+              {
+                listingPost.other_details && (<div><strong>other info</strong>: {listingPost.other_details}</div>)
+              }
             </div>
             <div className="tags">
               <div className="tag">{listingPost.number_of_roommates} Roomate(s)</div>
@@ -60,7 +64,7 @@ function ListingPostCard({ listingPost, handleClick, expanded, content }) {
               <div className="tag">{listingPost.bedroom_status} bedroom</div>
               <div className="tag">{listingPost.bathroom_status} bathroom</div>
               <div className="tag">{listingPost.neighborhood}</div>
-              {listingPost.optional_tags ? listingPost.optional_tags.map(optionalTag => (
+              {listingPost.optional_tags.length > 0 ? listingPost.optional_tags.map(optionalTag => (
                   <div className="opt-tag" key={optionalTag}>{optionalTag}</div>
               )) : null}
             </div>

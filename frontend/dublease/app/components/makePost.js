@@ -85,9 +85,12 @@ function MakePost({handleClose}) {
       "email": email,
       "phone_number": phoneNum,
       "start_date": startDate,
+      "flexible_start_date": flexibleStart,
       "end_date": endDate,
+      "flexible_end_date": flexibleEnd,
       "photos_link": picLinks,
       "rent": rent,
+      "flexible_rent": flexibleRent,
       "neighborhood": neighborhood,
       "address": addr,
       "number_of_roommates": numMates,
@@ -373,7 +376,7 @@ function MakePost({handleClose}) {
             type="text"
             value={promptQuestion}
             onChange={(e) => setPromptQuestion(e.target.value)}
-            placeholder="What is your favorite animal?"
+            placeholder="What is your favorite memory in the house?"
           />
         </div>
         <h3><strong>Prompt Answer</strong></h3>
@@ -382,7 +385,7 @@ function MakePost({handleClose}) {
             type="text"
             value={promptAnswer}
             onChange={(e) => setPromptAnswer(e.target.value)}
-            placeholder="Cats!"
+            placeholder="Building a fort with roommates!"
           />
         </div>
         <h3><strong>Default Tags</strong></h3>

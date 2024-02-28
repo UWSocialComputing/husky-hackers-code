@@ -17,9 +17,12 @@ This API provides services related to dublease. The API allows for creating post
   - `email` (string, required): email of lister
   - `phone_number` (string, optional): phone number of lister
   - `start_date` (date object, required): start date for listing
+  - `flexible_start_date` (boolean, required): is start date flexible?
   - `end_date` (date object, required): end date for listing
+  - `flexible_end_date` (boolean, required): is end date flexible?
   - `photos_link` (string, optional): link to drive folder with photos of listing
   - `rent` (int, required): listing rent
+  - `flexible_rent` (boolean, required): is rent flexible?
   - `neighborhood` (string, required): neighborhood of listing
   - `address` (string, optional): address of listing
   - `number_of_roommates` (int, required): number of roommates
@@ -40,9 +43,12 @@ This API provides services related to dublease. The API allows for creating post
     "email": "XX",
     "phone_number": "XX",
     "start_date": "XX",
+    "flexible_start_date": true,
     "end_date": "XX",
+    "flexible_end_date": true,
     "photos_link": "XX",
     "rent": 0,
+    "flexible_rent": true,
     "neighborhood": "XX",
     "address": "XX",
     "number_of_roommates": 0,
@@ -77,9 +83,12 @@ This API provides services related to dublease. The API allows for creating post
       "email": "XX",
       "phone_number": "XX",
       "start_date": "datetime obj",
+      "flexible_start_date": true,
       "end_date": "datetime obj",
+      "flexible_end_date": true,
       "photos_link": "XX",
       "rent": 0,
+      "flexible_rent": true,
       "neighborhood": "XX",
       "address": "XX",
       "number_of_roommates": 0,
@@ -100,9 +109,12 @@ This API provides services related to dublease. The API allows for creating post
       "email": "XX",
       "phone_number": "XX",
       "start_date": "datetime obj",
+      "flexible_start_date": true,
       "end_date": "datetime obj",
+      "flexible_end_date": true,
       "photos_link": "XX",
       "rent": 0,
+      "flexible_rent": true,
       "neighborhood": "XX",
       "address": "XX",
       "number_of_roommates": 0,

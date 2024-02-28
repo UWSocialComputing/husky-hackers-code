@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
+import Select from 'react-select'
 import './makePost.css'
 import { makeListingPost } from '../service';
 
@@ -11,8 +12,11 @@ function MakePost({handleClose}) {
   const [email, setEmail] = useState('');
   const [phoneNum, setPhoneNum] = useState('');
   const [startDate, setStartDate] = useState('');
+  const [flexibleStart, setFlexibleStart] = React.useState(false);
   const [endDate, setEndDate] = useState('');
+  const [flexibleEnd, setFlexibleEnd] = React.useState(false);
   const [rent, setRent] = useState(parseFloat(''));
+  const [flexibleRent, setFlexibleRent] = React.useState(false);
   const [neighborhood, setNeighbordHood] = useState('');
   const [addr, setAddr] = useState('');
   const [numMates, setNumMates] = useState(parseInt(''));
@@ -23,8 +27,42 @@ function MakePost({handleClose}) {
   const [other, setOther] = useState('');
   const [promptQuestion, setPromptQuestion] = useState('');
   const [promptAnswer, setPromptAnswer] = useState('');
-  const [tags, setTags] = useState('');
+  const [defaultTags, setDefaultTags] = useState([]);
+  const [tags, setTags] = useState([]);
   const [error, setError] = useState('');
+
+  const defaultTagOptions = [
+    { value: 'pet-friendly', label: 'pet-friendly' },
+    { value: 'non-smoking', label: 'non-smoking' }
+  ]
+  
+
+  function TagsInput(){
+
+    function handleKeyDown(e){
+        if(e.key !== 'Enter') return
+        const value = e.target.value
+        if(!value.trim()) return
+        setTags([...tags, value])
+        e.target.value = ''
+    }
+
+    function removeTag(index){
+        setTags(tags.filter((el, i) => i !== index))
+    }
+
+    return (
+        <div className="tags-input-container">
+            { tags.map((tag, index) => (
+                <div className="tag-item" key={index}>
+                    <span className="text">{tag}</span>
+                    <span className="close" onClick={() => removeTag(index)}>&times;</span>
+                </div>
+            )) }
+            <input onKeyDown={handleKeyDown} type="text" className="text-input" placeholder="near i5" />
+        </div>
+    )
+  }
 
   const handleMakePost = (e) => {
     e.preventDefault();
@@ -34,16 +72,11 @@ function MakePost({handleClose}) {
       || !addr || !numMates || !mateGender || !bedStatus || !bathStatus || !desc) {
       setError('Please fill out all required fields.');
       return;
-    } else {
-      setError('');
+    } else if (Date.parse(endDate) < Date.parse(startDate)) {
+      setError('End Date cannot be before Start Date');
+      return;
+    }
       // Handle form submission
-    }
-
-    let formattedTags = []
-    if (tags.length > 0) {
-      formattedTags = tags.split(',')
-      console.log(formattedTags)
-    }
 
     const post = {
       "title": title,
@@ -61,7 +94,7 @@ function MakePost({handleClose}) {
       "roommate_gender": mateGender,
       "bedroom_status": bedStatus,
       "bathroom_status": bathStatus,
-      "optional_tags": formattedTags,
+      "optional_tags": defaultTags.concat(tags),
       "prompt_question": promptQuestion,
       "prompt_answer": promptAnswer,
       "other_details": other
@@ -162,7 +195,7 @@ function MakePost({handleClose}) {
             country={"us"}
             value={phoneNum}
             onChange={setPhoneNum}
-            style={{ color: 'black', width: "230px", margin: 'auto'}}
+            style={{ color: 'black', width: "230px", margin: 'auto', flexGrow: 1}}
             required
           />
         </div>
@@ -176,6 +209,17 @@ function MakePost({handleClose}) {
             required
           />
         </div>
+        <h3><strong>{}</strong></h3>
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <label style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center' }}>
+            <span style={{ marginRight: '5px' }}><strong>Flexible Start Date?</strong></span>
+            <input
+              type="checkbox"
+              checked={flexibleStart}
+              onChange={() => setFlexibleStart(prevState => !prevState)}
+            />
+          </label>
+        </div>
         <h3><strong>End Date*</strong></h3>
         <div className="input-field">
           <input className='text-input'
@@ -184,6 +228,17 @@ function MakePost({handleClose}) {
             onChange={(e) => setEndDate(e.target.value)}
             required
           />
+        </div>
+        <h3><strong>{}</strong></h3>
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <label style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center' }}>
+            <span style={{ marginRight: '5px' }}><strong>Flexible End Date?</strong></span>
+            <input
+              type="checkbox"
+              checked={flexibleEnd}
+              onChange={() => setFlexibleEnd(prevState => !prevState)}
+            />
+          </label>
         </div>
         <h3><strong>Rent Price (per month)*</strong></h3>
         <div className="input-field">
@@ -202,12 +257,23 @@ function MakePost({handleClose}) {
             required
           />
         </div>
+        <h3><strong>{}</strong></h3>
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <label style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center' }}>
+            <span style={{ marginRight: '5px' }}><strong>Flexible Rent Price?</strong></span>
+            <input
+              type="checkbox"
+              checked={flexibleRent}
+              onChange={() => setFlexibleRent(prevState => !prevState)}
+            />
+          </label>
+        </div>
         <h3><strong>Neighborhood*</strong></h3>
         <div className="input-field">
           <select
             value={neighborhood}
             onChange={(e) => setNeighbordHood(e.target.value)}
-            style={{ color: 'black' }}
+            style={{ color: 'black', flexGrow: 1}}
             required
           >
             <option value=""></option>
@@ -217,6 +283,7 @@ function MakePost({handleClose}) {
             <option value="Greenlake">Greenlake</option>
             <option value="Roosevelt/Northgate">Roosevelt/Northgate</option>
             <option value="Cap Hill/Downtown">Cap Hill/Downtown</option>
+            <option value="Other">Other</option>
           </select>
         </div>
         <h3><strong>Address*</strong></h3>
@@ -252,14 +319,15 @@ function MakePost({handleClose}) {
             type="text"
             value={mateGender}
             onChange={(e) => setMateGender(e.target.value)}
-            style={{ color: 'black' }}
+            style={{ color: 'black', flexGrow: 1 }}
             required
             >
             <option value=""></option>
             <option value="Mixed">Mixed</option>
             <option value="All Women">All Women</option>
             <option value="All Men">All Men</option>
-            <option value="N/A">All Men</option>
+            <option value="Other">Other</option>
+            <option value="N/A">N/A</option>
           </select>
         </div>
         <h3><strong>Bedroom Status*</strong></h3>
@@ -268,7 +336,7 @@ function MakePost({handleClose}) {
             type="text"
             value={bedStatus}
             onChange={(e) => setBedStatus(e.target.value)}
-            style={{ color: 'black' }}
+            style={{ color: 'black', flexGrow: 1 }}
             required
             >
             <option value=""></option>
@@ -282,7 +350,7 @@ function MakePost({handleClose}) {
             type="text"
             value={bathStatus}
             onChange={(e) => setBathStatus(e.target.value)}
-            style={{ color: 'black' }}
+            style={{ color: 'black', flexGrow: 1 }}
             required
             >
             <option value=""></option>
@@ -290,7 +358,7 @@ function MakePost({handleClose}) {
             <option value="Shared">Shared</option>
           </select>
         </div>
-        <h3><strong>Links to Pictures of Residence</strong></h3>
+        <h3><strong>Pictures of Residence</strong></h3>
         <div className="input-field">
           <input className='text-input'
             type="text"
@@ -317,14 +385,44 @@ function MakePost({handleClose}) {
             placeholder="Cats!"
           />
         </div>
-        <h3><strong>Tags (seperate tags with commas)</strong></h3>
+        <h3><strong>Default Tags</strong></h3>
         <div className="input-field">
-          <input className='text-input'
-            type="text"
-            value={tags}
-            onChange={(e) => setTags(e.target.value)}
-            placeholder="pet-friendly, non-smoking"
-          />
+          <div className="text-input">
+            <Select 
+              value={defaultTags.map(tag => ({ value: tag, label: tag }))}
+              isMulti
+              isClearable={defaultTagOptions.some((v) => !v.isFixed)}
+              name="default tags"
+              className="basic-multi-select"
+              classNamePrefix="select"
+              onChange={(selectedOptions) => {
+                if (selectedOptions) {
+                  setDefaultTags(selectedOptions.map(option => option.value));
+                } else {
+                  setDefaultTags([]);
+                }
+              }}
+              options={defaultTagOptions}
+              styles={{
+                option: (provided) => ({
+                  ...provided,
+                  color: 'black'
+                }),
+                singleValue: (provided) => ({
+                  ...provided,
+                  color: 'black'
+                }),
+                control: (provided) => ({
+                  ...provided,
+                  color: 'black'
+                })
+              }}
+            />
+          </div>
+        </div>
+        <h3><strong>Other Tags</strong></h3>
+        <div className="input-field">
+          <TagsInput />
         </div>
         <h3><strong>Other Details</strong></h3>
         <div className="input-field">
@@ -335,9 +433,9 @@ function MakePost({handleClose}) {
             placeholder="Open to negotiate rent price"
           />  
         </div>
-        {error && <p style={{ color: 'red' }}>{<strong>error</strong>}</p>}
       </form>
-      <div className="tagButton">
+      {error && <p style={{ color: 'red' }}>{<strong>{error}</strong>}</p>}
+      <div className="submitButton">
           <button type="button"
           onClick= {handleMakePost}>
           <strong>Create Post</strong>

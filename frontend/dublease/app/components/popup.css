@@ -7,15 +7,15 @@
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: top;
   z-index: 999;
-  overflow-y: auto;
 }
 
 .popup-content {
   position: relative;
   background-color: white;
   width: 60%;
+  height: 100%;
   padding: 20px;
   border-radius: 10px;
   overflow-y: auto;
@@ -23,7 +23,6 @@
 
 .popup-components {
   margin-top: 30px;
-  overflow-y: auto;
 }
 
 .close-button {
@@ -34,6 +33,4 @@
   border: none;
   font-size: 20px;
   cursor: pointer;
-  overflow-y: auto;
-  z-index: 1001; /* Ensure close button is above content */
 }

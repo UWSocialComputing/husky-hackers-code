@@ -4,6 +4,8 @@ from typing import Optional
 from dotenv import load_dotenv
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
+from bson.binary import Binary
+import bson
 
 load_dotenv()
 
@@ -25,7 +27,7 @@ except Exception as e:
 def get_all_posts() -> list[dict]:
     return list(listings_collection.find({}))
 
-def make_listing_post(title: str, name: str, email: str, start_date: datetime, flexible_start_date: bool, end_date: datetime, flexible_end_date: bool, rent: float, flexible_rent: bool, neighborhood: str, number_of_roommates: int, bedroom_status: str, bathroom_status: str, description: Optional[str] = None, phone_number: Optional[str] = None, photos_link: Optional[str] = None, address: Optional[str] = None, roommate_gender: Optional[str] = None, optional_tags: Optional[list[str]] = None, prompt_question: Optional[str] = None, prompt_answer: Optional[str] = None, other_details: Optional[str] = None) -> None:
+def make_listing_post(title: str, name: str, email: str, start_date: datetime, flexible_start_date: bool, end_date: datetime, flexible_end_date: bool, rent: float, flexible_rent: bool, neighborhood: str, number_of_roommates: int, bedroom_status: str, bathroom_status: str, description: Optional[str] = None, phone_number: Optional[str] = None, photos_link: Optional[str] = None, address: Optional[str] = None, roommate_gender: Optional[str] = None, optional_tags: Optional[list[str]] = None, prompt_question: Optional[str] = None, prompt_answer: Optional[str] = None, other_details: Optional[str] = None, photos: Optional[list[bson.binary.Binary]] = None) -> None:
     listings_collection.insert_one({
         "title": title,
         "description": description,
@@ -49,6 +51,7 @@ def make_listing_post(title: str, name: str, email: str, start_date: datetime, f
         "prompt_question": prompt_question,
         "prompt_answer": prompt_answer,
         "created_at": datetime.now(),
-        "other_details": other_details
+        "other_details": other_details,
+        "photos": photos
     })
     

@@ -1,6 +1,8 @@
 import json
 from flask import Flask, Response, request
 from flask_cors import CORS  # Import CORS from flask_cors
+from bson.binary import Binary
+import base64
 import db
 
 app = Flask(__name__)
@@ -33,6 +35,13 @@ def listing_post():
    # prompt_question = body.get('prompt_question')
    # prompt_answer = body.get('prompt_answer')
 
+   photos_base64 = body.get('photos', None)
+   try:
+      binary_photos = [Binary(base64.b64decode(photo)) for photo in photos_base64]
+   except Exception as e:
+      print(e)
+      binary_photos = None
+
    db.make_listing_post(
       title=body.get('title'),
       description=body.get('description'),
@@ -55,14 +64,23 @@ def listing_post():
       optional_tags=body.get('optional_tags'),
       prompt_question=body.get('prompt_question'),
       prompt_answer=body.get('prompt_answer'),
-      other_details=body.get('other_details')
+      other_details=body.get('other_details'),
+      photos=binary_photos
    )
 
-   return Response(response="listing post", status=200, content_type='application/json')
+   # return Response(response="listing post", status=200, content_type='application/json')
+   return Response(response=json.dumps("dublease"), status=200, content_type='application/json')
+
 
 @app.route('/view_listing_posts', methods=['GET'])
 def all_listing_posts():
+   # posts = db.get_all_posts()
+   # response_data = json.dumps(posts, default=str)
+   # return Response(response=response_data, status=200, content_type='application/json')
    posts = db.get_all_posts()
+   for post in posts:
+      if 'photos' in post:
+         post['photos'] = [base64.b64encode(photo).decode('utf-8') for photo in post['photos']]
    response_data = json.dumps(posts, default=str)
    return Response(response=response_data, status=200, content_type='application/json')
 

@@ -33,6 +33,7 @@ This API provides services related to dublease. The API allows for creating post
   - `prompt_question` (string, optional): prompt question that is attached to the post
   - `prompt_answer` (string, optional): answer to the prompt
   - `other_details` (string, optional): other details about the listing
+  - `photos` (list, optional): list of base64 encoded photos
 
 - **Request Example**:
   ```json
@@ -59,6 +60,7 @@ This API provides services related to dublease. The API allows for creating post
     "prompt_question": "XX",
     "prompt_answer": "XX",
     "other_details": "XX",
+    "photos": ["XX", "YY"],
   }
 - **Response**:
     - Success: A message confirming the receipt of the request.
@@ -99,6 +101,7 @@ This API provides services related to dublease. The API allows for creating post
       "prompt_question": "XX",
       "prompt_answer": "XX",
       "other_details": "XX",
+      "photos": ["XX", "YY"],
       "_id": 0,
       "date_posted": "datetime obj",
     },
@@ -125,6 +128,7 @@ This API provides services related to dublease. The API allows for creating post
       "prompt_question": "XX",
       "prompt_answer": "XX",
       "other_details": "XX",
+      "photos": ["XX", "YY"],
       "_id": 0,
       "date_posted": "datetime obj",
     }

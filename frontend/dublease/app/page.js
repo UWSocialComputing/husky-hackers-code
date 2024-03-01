@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Popup from "./components/popup";
 import MakePost from './components/makePost';
 import ListingPostCard from './components/listingPostCard';
+import SortingMenu from './components/sortingMenu';
 import { getListingPosts } from './service';
 
 export default function HomePage() {
@@ -15,7 +16,7 @@ export default function HomePage() {
     const fetchData = async () => {
       try {
         const response = await getListingPosts()
-        setListingPosts(response);
+        setListingPosts(sortingMethods["Recency: Newest to oldest"](response));
         console.log(response)
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -24,6 +25,13 @@ export default function HomePage() {
 
     fetchData(); // Call the async function
   }, [reload]); 
+
+  const sortingMethods = {
+    "Recency: Newest to oldest": (list) => list.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)),
+    "Recency: Oldest to newest": (list) => list.sort((a, b) => new Date(a.created_at) - new Date(b.created_at)),
+    "Rent: Lowest to highest": (list) => list.sort((a, b) => a.rent - b.rent),
+    "Rent: Highest to lowest": (list) => list.sort((a, b) => b.rent - a.rent)
+  };
 
   const handleMakePostClick = () => {
     setIsMakingPost(true);
@@ -74,7 +82,14 @@ export default function HomePage() {
         </div>
         
         <div className="right-column sorting">
-
+          <SortingMenu
+            sortingOptions={["Recency: Newest to oldest", "Recency: Oldest to newest",
+             "Rent: Lowest to highest", "Rent: Highest to lowest"]}
+            handleSortingChange={(option)=>{
+              let sorted = sortingMethods[option]([...listingPosts])
+              setListingPosts(sortingMethods[option]([...listingPosts]))
+            }}
+          />
         </div>
       </div>
     </>

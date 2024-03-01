@@ -1,0 +1,29 @@
+.container {
+  width: 100%;
+  padding: 15px;
+}
+
+.column-title{
+  text-align: center;
+  font-weight: bold;
+  color: white;
+  font-size: 18pt;
+  margin-bottom: 10pt;
+}
+
+.button-unselected {
+  background-color: white;
+  color: #6b5786;
+  border-radius: 30px;
+  padding: 12px;
+  margin: 5px;
+}
+
+.button-selected {
+  background-color: #FFF8C9;
+  color: #6b5786;
+  border-radius: 30px;
+  padding: 12px;
+  margin: 5px;
+  font-weight: bold;
+}

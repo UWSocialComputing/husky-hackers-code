@@ -17,21 +17,22 @@ function MakePost({handleClose}) {
   const [flexibleEnd, setFlexibleEnd] = React.useState(false);
   const [rent, setRent] = useState(parseFloat(''));
   const [flexibleRent, setFlexibleRent] = React.useState(false);
-  const [neighborhood, setNeighbordHood] = useState('');
+  const [neighborhood, setNeighborHood] = useState('');
   const [addr, setAddr] = useState('');
   const [numMates, setNumMates] = useState(parseInt(''));
   const [mateGender, setMateGender] = useState('');
   const [bedStatus, setBedStatus] = useState('');
   const [bathStatus, setBathStatus] = useState('');
-  const [picLinks, setPicLinks] = useState('');
+  const [pics, setPics] = useState([]);
+  const [base64Images, setBase64Images] = useState([]);
   const [other, setOther] = useState('');
   const [promptQuestion, setPromptQuestion] = useState('');
   const [promptAnswer, setPromptAnswer] = useState('');
-  const [defaultTags, setDefaultTags] = useState([]);
+  const [popularTags, setPopularTags] = useState([]);
   const [tags, setTags] = useState([]);
   const [error, setError] = useState('');
 
-  const defaultTagOptions = [
+  const popularTagOptions = [
     { value: 'pet-friendly', label: 'pet-friendly' },
     { value: 'non-smoking', label: 'non-smoking' }
   ]
@@ -59,14 +60,44 @@ function MakePost({handleClose}) {
                     <span className="close" onClick={() => removeTag(index)}>&times;</span>
                 </div>
             )) }
-            <input onKeyDown={handleKeyDown} type="text" className="text-input" placeholder="near i5" />
+            <input onKeyDown={handleKeyDown} type="text" className="text-input" placeholder="near i5 (press ENTER to create a new tag)" />
         </div>
     )
   }
 
+  const handleImageChange = (e) => {
+    const files = Array.from(e.target.files);
+
+    const imagePromises = files.map((file) => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+
+        reader.onload = (event) => {
+          resolve(event.target.result);
+        };
+
+        reader.onerror = (error) => {
+          reject(error);
+        };
+
+        reader.readAsDataURL(file);
+      });
+    });
+
+    Promise.all(imagePromises)
+      .then((base64Images) => {
+        setImages([...images, ...files]);
+        setBase64Images([...base64Images]);
+      })
+      .catch((error) => {
+        console.error('Error reading files:', error);
+      });
+  };
+
+
   const handleMakePost = (e) => {
     e.preventDefault();
-    console.log('Creating post', { title, name, email, phoneNum, startDate, endDate, rent, neighborhood, addr, numMates, mateGender, bedStatus, bathStatus, picLinks, other });
+    console.log('Creating post', { title, name, email, phoneNum, startDate, endDate, rent, neighborhood, addr, numMates, mateGender, bedStatus, bathStatus, pics, other });
     
     if (!title || !name || !email || !phoneNum || !startDate || !endDate || !rent || !neighborhood 
       || !addr || !numMates || !mateGender || !bedStatus || !bathStatus || !desc) {
@@ -88,7 +119,7 @@ function MakePost({handleClose}) {
       "flexible_start_date": flexibleStart,
       "end_date": endDate,
       "flexible_end_date": flexibleEnd,
-      "photos_link": picLinks,
+      "photos_link": "",
       "rent": rent,
       "flexible_rent": flexibleRent,
       "neighborhood": neighborhood,
@@ -97,10 +128,11 @@ function MakePost({handleClose}) {
       "roommate_gender": mateGender,
       "bedroom_status": bedStatus,
       "bathroom_status": bathStatus,
-      "optional_tags": defaultTags.concat(tags),
+      "optional_tags": popularTags.concat(tags),
       "prompt_question": promptQuestion,
       "prompt_answer": promptAnswer,
-      "other_details": other
+      "other_details": other,
+      "photos": base64Images,
     }
     
     const sendPost = async () => {
@@ -132,19 +164,25 @@ function MakePost({handleClose}) {
     setEmail('');
     setPhoneNum('');
     setStartDate('');
+    setFlexibleStart(React.useState(false));
     setEndDate('');
+    setFlexibleEnd(React.useState(false));
     setRent(parseFloat(''));
-    setNeighbordHood('');
+    setFlexibleRent(React.useState(false));
+    setNeighborHood('');
     setAddr('');
     setNumMates(parseInt(''));
     setMateGender('');
     setBedStatus('');
     setBathStatus('');
-    setPicLinks('');
+    setPics([]);
     setPromptQuestion('');
     setPromptAnswer('');
-    setTags('')
+    setTags([]);
+    setPopularTags([]);
+    setBase64Images([]);
     setOther('');
+    setError('');
   }
 
   return (
@@ -215,7 +253,7 @@ function MakePost({handleClose}) {
         <h3><strong>{}</strong></h3>
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
           <label style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center' }}>
-            <span style={{ marginRight: '5px' }}><strong>Flexible Start Date?</strong></span>
+            <span style={{ marginRight: '5px' }}><strong>Flexible Start Date</strong></span>
             <input
               type="checkbox"
               checked={flexibleStart}
@@ -235,7 +273,7 @@ function MakePost({handleClose}) {
         <h3><strong>{}</strong></h3>
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
           <label style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center' }}>
-            <span style={{ marginRight: '5px' }}><strong>Flexible End Date?</strong></span>
+            <span style={{ marginRight: '5px' }}><strong>Flexible End Date</strong></span>
             <input
               type="checkbox"
               checked={flexibleEnd}
@@ -263,7 +301,7 @@ function MakePost({handleClose}) {
         <h3><strong>{}</strong></h3>
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
           <label style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center' }}>
-            <span style={{ marginRight: '5px' }}><strong>Flexible Rent Price?</strong></span>
+            <span style={{ marginRight: '5px' }}><strong>Flexible Rent Price</strong></span>
             <input
               type="checkbox"
               checked={flexibleRent}
@@ -275,7 +313,7 @@ function MakePost({handleClose}) {
         <div className="input-field">
           <select
             value={neighborhood}
-            onChange={(e) => setNeighbordHood(e.target.value)}
+            onChange={(e) => setNeighborHood(e.target.value)}
             style={{ color: 'black', flexGrow: 1}}
             required
           >
@@ -363,12 +401,12 @@ function MakePost({handleClose}) {
         </div>
         <h3><strong>Pictures of Residence</strong></h3>
         <div className="input-field">
-          <input className='text-input'
-            type="text"
-            value={picLinks}
-            onChange={(e) => setPicLinks(e.target.value)}
-            placeholder="wwww.pics.com"
-          />
+          <input type="file" accept="image/*" multiple onChange={handleImageChange} />
+          <div>
+            {base64Images.map((base64, index) => (
+              <img key={index} src={base64} alt={`Uploaded ${index}`} style={{ width: '100px', height: '100px', objectFit: 'cover', margin: '5px' }} />
+            ))}
+          </div>
         </div>
         <h3><strong>Prompt Question</strong></h3>
         <div className="input-field">
@@ -388,24 +426,24 @@ function MakePost({handleClose}) {
             placeholder="Building a fort with roommates!"
           />
         </div>
-        <h3><strong>Default Tags</strong></h3>
+        <h3><strong>Popular Tags</strong></h3>
         <div className="input-field">
           <div className="text-input">
             <Select 
-              value={defaultTags.map(tag => ({ value: tag, label: tag }))}
+              value={popularTags.map(tag => ({ value: tag, label: tag }))}
               isMulti
-              isClearable={defaultTagOptions.some((v) => !v.isFixed)}
-              name="default tags"
+              isClearable={popularTagOptions.some((v) => !v.isFixed)}
+              name="popular tags"
               className="basic-multi-select"
               classNamePrefix="select"
               onChange={(selectedOptions) => {
                 if (selectedOptions) {
-                  setDefaultTags(selectedOptions.map(option => option.value));
+                  setPopularTags(selectedOptions.map(option => option.value));
                 } else {
-                  setDefaultTags([]);
+                  setPopularTags([]);
                 }
               }}
-              options={defaultTagOptions}
+              options={popularTagOptions}
               styles={{
                 option: (provided) => ({
                   ...provided,
@@ -423,7 +461,7 @@ function MakePost({handleClose}) {
             />
           </div>
         </div>
-        <h3><strong>Other Tags</strong></h3>
+        <h3><strong>Custom Tags</strong></h3>
         <div className="input-field">
           <TagsInput />
         </div>

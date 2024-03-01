@@ -81,7 +81,11 @@ def all_listing_posts():
    for post in posts:
       if 'photos' in post:
          post['photos'] = [base64.b64encode(photo).decode('utf-8') for photo in post['photos']]
+         post['photos'] = [photo[24:] for photo in post['photos']]
    response_data = json.dumps(posts, default=str)
+   # f = open("test.txt", "a")
+   # f.write(response_data)
+   # f.close()
    return Response(response=response_data, status=200, content_type='application/json')
 
 if __name__ == '__main__':

@@ -1,13 +1,14 @@
 'use client';
 import React, {useState, useEffect} from 'react';
+import Link from 'next/link';
 import Popup from "./components/popup";
 import MakePost from './components/makePost';
 import ListingPostCard from './components/listingPostCard';
 import { getListingPosts } from './service';
 
-export default function Home() {
+export default function HomePage() {
   const [isMakingPost, setIsMakingPost] = useState(false);
-  const [viewingPost, setViewingPost] = useState(null);
+  const [reload, setReload] = useState(0);
   const [listingPosts, setListingPosts] = useState([]);
 
   useEffect(() => {
@@ -22,7 +23,7 @@ export default function Home() {
     };
 
     fetchData(); // Call the async function
-  }, [isMakingPost]); 
+  }, [reload]); 
 
   const handleMakePostClick = () => {
     setIsMakingPost(true);
@@ -30,15 +31,8 @@ export default function Home() {
 
   const handleMakePostClose = () => {
     setIsMakingPost(false);
+    setReload(reload + 1);
   };
-
-  const handleViewPostClick = (post) => {
-    setViewingPost(post);
-  };
-
-  const handleViewPostClose = () => {
-    setViewingPost(null);
-  }
 
   return (
     <>
@@ -53,17 +47,6 @@ export default function Home() {
       }
       
 
-      {
-        viewingPost && (
-          <Popup handleClose={handleViewPostClose}>
-            <ListingPostCard
-              listingPost = {viewingPost}
-              expanded = {true}
-            />
-          </Popup>
-        )
-      }
-
       <div className="app">
 
         <div className="left-column filters">
@@ -74,12 +57,13 @@ export default function Home() {
           <div className="card-container">
             {
               listingPosts.map(listingPost => (
-                <ListingPostCard
-                  key = {listingPost._id}
-                  listingPost = {listingPost}
-                  handleClick = {() => {handleViewPostClick(listingPost)}}
-                  expanded = {false}
-                />
+                <Link href={`/postPage/${listingPost._id}`} target="_blank">
+                  <ListingPostCard
+                    key = {listingPost._id}
+                    listingPost = {listingPost}
+                    expanded = {false}
+                  />
+                </Link>
             ))}
           </div>
 
@@ -88,6 +72,7 @@ export default function Home() {
           </button>
 
         </div>
+        
         <div className="right-column sorting">
 
         </div>
@@ -95,4 +80,3 @@ export default function Home() {
     </>
   );
 }
-

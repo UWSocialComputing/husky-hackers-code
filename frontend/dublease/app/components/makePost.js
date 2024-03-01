@@ -67,6 +67,8 @@ function MakePost({handleClose}) {
 
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
+    console.log(files);
+    setPics(files);
 
     const imagePromises = files.map((file) => {
       return new Promise((resolve, reject) => {
@@ -86,12 +88,14 @@ function MakePost({handleClose}) {
 
     Promise.all(imagePromises)
       .then((base64Images) => {
-        setImages([...images, ...files]);
         setBase64Images([...base64Images]);
+        console.log(base64Images);
+
       })
       .catch((error) => {
         console.error('Error reading files:', error);
       });
+
   };
 
 
@@ -164,11 +168,11 @@ function MakePost({handleClose}) {
     setEmail('');
     setPhoneNum('');
     setStartDate('');
-    setFlexibleStart(React.useState(false));
+    setFlexibleStart(false);
     setEndDate('');
-    setFlexibleEnd(React.useState(false));
+    setFlexibleEnd(false);
     setRent(parseFloat(''));
-    setFlexibleRent(React.useState(false));
+    setFlexibleRent(false);
     setNeighborHood('');
     setAddr('');
     setNumMates(parseInt(''));

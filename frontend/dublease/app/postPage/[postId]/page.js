@@ -120,6 +120,23 @@ export default function PostPage({ params }) {
                 </div>
               )
             }
+
+{
+              post.photos && (
+                <div className="yellow-box">
+                  <div>
+                    {post.photos.map((base64, index) => (
+                      <img
+                        key={index}
+                        src={Buffer.from(base64, "base64").toString()}
+                        alt={`Image ${index}`}
+                        style={{ width: '100px', height: '100px', objectFit: 'cover', margin: '5px' }}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )
+            }
           </div>
         )
       }

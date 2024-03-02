@@ -12,7 +12,7 @@
 }
 
 .button-unselected {
-  background-color: white;
+  background-color: red;
   color: #6b5786;
   border-radius: 30px;
   padding: 12px;

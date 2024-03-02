@@ -5,6 +5,7 @@ import Popup from "./components/popup";
 import MakePost from './components/makePost';
 import ListingPostCard from './components/listingPostCard';
 import SortingMenu from './components/sortingMenu';
+import FilterMenu from './components/filterMenu';
 import { getListingPosts } from './service';
 
 export default function HomePage() {
@@ -58,7 +59,7 @@ export default function HomePage() {
       <div className="app">
 
         <div className="left-column filters">
-
+          <FilterMenu/>
         </div>
 
         <div className="center-column">

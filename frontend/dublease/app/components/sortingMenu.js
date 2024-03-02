@@ -11,7 +11,7 @@ function SortingMenu({ handleSortingChange, sortingOptions }) {
 
       { 
         sortingOptions.map(option => (
-          <>
+          <div key={option}>
             {
               option == selection && (
                 <div className="button-selected">{option}</div>
@@ -28,7 +28,7 @@ function SortingMenu({ handleSortingChange, sortingOptions }) {
                 </div>
               )
             }
-          </>
+          </div>
         ))
       }
     </div>

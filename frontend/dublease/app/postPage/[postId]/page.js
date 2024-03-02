@@ -128,7 +128,7 @@ export default function PostPage({ params }) {
                     {post.photos.map((base64, index) => (
                       <img
                         key={index}
-                        src={Buffer.from(base64, "base64").toString()}
+                        src={`data:image/jpeg;base64,/9j/${base64}`}
                         alt={`Image ${index}`}
                         style={{ width: '100px', height: '100px', objectFit: 'cover', margin: '5px' }}
                       />

@@ -1,0 +1,29 @@
+.sorting-container {
+  width: 100%;
+  padding: 15px;
+}
+
+.sorting-column-title{
+  text-align: center;
+  font-weight: bold;
+  color: white;
+  font-size: 18pt;
+  margin-bottom: 10pt;
+}
+
+.sorting-button-unselected {
+  background-color: white;
+  color: #6b5786;
+  border-radius: 30px;
+  padding: 12px;
+  margin-top: 10px;
+}
+
+.sorting-button-selected {
+  background-color: #FFF8C9;
+  color: #6b5786;
+  border-radius: 30px;
+  padding: 12px;
+  margin-top: 10px;
+  font-weight: bold;
+}

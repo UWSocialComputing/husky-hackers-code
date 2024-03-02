@@ -1,7 +1,7 @@
-import './popup.css'; // Import your CSS file for styling
+import './popup.css';
 import React from 'react';
 
-function Popup({ handleClose, children }) { // Use destructuring for props
+function Popup({ handleClose, children }) {
   return (
     <div className="popup">
       <div className="popup-content">

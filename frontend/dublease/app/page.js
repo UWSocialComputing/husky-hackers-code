@@ -75,11 +75,6 @@ export default function HomePage() {
                 </Link>
             ))}
           </div>
-
-          <button className="floating-button" onClick={handleMakePostClick}>
-            Make Post <strong>+</strong>
-          </button>
-
         </div>
         
         <div className="right-column sorting">
@@ -91,6 +86,10 @@ export default function HomePage() {
               setListingPosts(sortingMethods[option]([...listingPosts]))
             }}
           />
+
+          <button className="floating-button" onClick={handleMakePostClick}>
+            Make Post <strong>+</strong>
+          </button>
         </div>
       </div>
     </>

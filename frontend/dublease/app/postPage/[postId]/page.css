@@ -1,17 +1,21 @@
 body {
-  padding-left: 150px;
-  padding-right: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e5d0ff;
 }
 
 .expanded {
-  min-width: 400px;
+  min-width: 600px;
+  max-width: 1000px;
+  min-height: 100vh;
   padding: 20px;
-  color: black;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 20px; 
   text-align: center;
+  background-color: white;
 }
 
 .listing-title {
@@ -30,7 +34,6 @@ body {
   flex-direction: row;
   justify-content: center;
 }
-
 
 .tag {
   border-radius: 30px;
@@ -67,4 +70,28 @@ body {
   border-width: 3pt;
   border-color: #e5d0ff;
   color: #6b5786;
+}
+
+.photo-container {
+  padding: 10px;
+  margin: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.photo {
+  width: 200px;
+  height: 200px;
+  border-radius: 30px;
+  object-fit: cover;
+  margin: 5px;
+}
+
+.title-photo {
+  width: 400px;
+  border-radius: 50px;
+  object-fit: cover;
+  margin: 5px;
 }

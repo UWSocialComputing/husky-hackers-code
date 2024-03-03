@@ -5,7 +5,7 @@ import Select from 'react-select'
 import './makePost.css'
 import { makeListingPost } from '../service';
 
-function MakePost({handleClose}) {
+function MakePost({handleClose, handleNewPost}) {
   const [title, setTitle] = useState('');
   const [desc, setDesc] = useState('');
   const [name, setName] = useState('');
@@ -159,7 +159,7 @@ function MakePost({handleClose}) {
     };
 
     sendPost();
-    handleClose();
+    handleNewPost(post);
 
     // Reset form fields    
     setTitle('');

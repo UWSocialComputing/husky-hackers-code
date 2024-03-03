@@ -12,7 +12,7 @@
   font-weight: bold;
   color: white;
   font-size: 18pt;
-  margin-bottom: 20pt;
+  margin-bottom: 10pt;
 }
 
 .filter-input {
@@ -29,6 +29,7 @@
   border-radius: 30px;
   padding: 12px;
   margin: 5px;
+  font-weight: normal;
 }
 
 .filter-button-selected {
@@ -53,3 +54,119 @@
   margin-bottom: 20px;
 }
 
+.subcontainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.slider{
+  margin-right: 25px;
+}
+
+.rent-number{
+  color: #6b5786;
+  border-radius: 30px;
+  padding: 12px;
+  font-weight: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  input[type='range'] {
+    overflow: hidden;
+    width: 110px;
+    -webkit-appearance: none;
+    background-color: white;
+  }
+  
+  input[type='range']::-webkit-slider-runnable-track {
+    height: 30px;
+    -webkit-appearance: none;
+    color: #FFF8C9;
+    margin-top: -1px;
+  }
+  
+  input[type='range']::-webkit-slider-thumb {
+    width: 30px;
+    -webkit-appearance: none;
+    height: 30px;
+    cursor: ew-resize;
+    background: #6b5786;
+    box-shadow: -110px 0 0 110px #FFF8C9;
+  }
+}
+
+.filter-box-selected {
+  height: 20px;
+  width: 20px;
+  border-radius: 5px;
+  border-color:#6b5786;
+  border-width: 2px;
+  background-color: #6b5786;
+  margin-right: 10px;
+}
+
+.filter-box-unselected {
+  height: 20px;
+  width: 20px;
+  border-radius: 5px;
+  border-color: #6b5786;
+  border-width: 2px;
+  background-color: white;
+  margin-right: 10px;
+}
+
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.menu-item {
+  display: flex;
+  margin-top: 5px; 
+  align-items: center;
+}
+
+.tag {
+  border-radius: 30px;
+  padding: 10px;
+  margin: 5px;
+  font-weight: normal;
+}
+
+.submission-containter {
+  margin-top: 30px;
+  padding-bottom: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.apply-button, .clear-button {
+  height: 40px;
+  width: 130px;
+  border-radius: 15px;
+  border-width: 3px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.apply-button {
+  background-color: #6b5786;
+  border-color: #6b5786;
+  color: white;
+}
+
+.clear-button {
+  background-color: white;
+  border-color: #6b5786;
+  color: #6b5786;
+  margin-right: 10px;
+}

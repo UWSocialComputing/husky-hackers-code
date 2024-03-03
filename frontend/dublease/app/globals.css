@@ -13,7 +13,6 @@ html, body {
 }
 
 .app {
-  min-height: 100vh;
   display: flex;
   flex-direction: row;
 }
@@ -21,42 +20,36 @@ html, body {
 .left-column,
 .right-column {
   height: 100vh;
-  min-width: 300px; /* Adjust width as needed */
+  min-width: 320px;
   padding: 10px;
+  overflow-y: auto;
+  background-color:#e5d0ff;
 }
 
 .center-column {
   flex-grow: 1;
-  padding: 20px;
   position: relative;
-}
-
-.filters {
-  background-color: #e5d0ff; /* Example background color */
-}
-
-.sorting {
-  background-color: #e5d0ff; /* Example background color */
+  overflow-y: auto;
 }
 
 .floating-button {
-  position: absolute;
-  bottom: 40px; /* Adjust as needed */
-  right: 20px; /* Adjust as needed */
-  padding: 10px 15px; /* Adjust padding to make the button bigger */
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  padding: 20px 30px;
   background-color: 	#FFF8C9;
   color: #633d92;
   border: none;
-  border-radius: 30px; /* Adjust border radius to make the edges rounded */
+  border-radius: 30px;
   cursor: pointer;
-  font-size: 20px; /* Adjust font size if needed */
+  font-size: 30px;
 }
 
 .card-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  padding-top: 20px;
   gap: 20px;
   max-height: 100vh;
-  overflow-y: auto;
 }

@@ -18,6 +18,16 @@ function ListingPostCard({ listingPost, handleClick }) {
     <>
       <div className="card" onClick={handleClick}>
         <div className = "listing-title">{listingPost.title}</div>
+        {
+          listingPost.photos && listingPost.photos.length > 0 && (
+              <div className="card-photo-container">
+                <img
+                  src={`data:image/jpeg;base64,/9j/${listingPost.photos[0]}`}
+                  className="card-photo"
+                />
+              </div>
+          )
+        }
         <div className = "yellow-box">
           <div><strong>{startDate.getMonth()+1}/{startDate.getDate()}/{startDate.getFullYear()}</strong>{listingPost.flexible_start_date ? " (flexible) " : " "}to <strong>
               {endDate.getMonth()+1}/{endDate.getDate()}/{endDate.getFullYear()}</strong>{listingPost.flexible_end_date ? " (flexible)" : ""}</div>

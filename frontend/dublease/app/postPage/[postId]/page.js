@@ -30,7 +30,7 @@ export default function PostPage({ params }) {
       }
     };
 
-    fetchData(); // Call the async function
+    fetchData();
   }, []); 
 
   return (
@@ -45,11 +45,23 @@ export default function PostPage({ params }) {
         post && (
           <div className="expanded">
             <div className = "listing-title">{post.title}</div>
+
+            {
+              post.photos && post.photos.length > 0 && (
+                  <div className="photo-container">
+                    <img
+                      src={`data:image/jpeg;base64,/9j/${post.photos[0]}`}
+                      className="title-photo"
+                    />
+                  </div>
+              )
+            }
+
             <div className = "yellow-box">
               <div className = "sub-box">{post.description}</div>
               <div className = "sub-box"><strong>{startDate.getMonth()+1}/{startDate.getDate()}/{startDate.getFullYear()}</strong>{post.flexible_start_date ? " (flexible) " : " "}to <strong>
                 {endDate.getMonth()+1}/{endDate.getDate()}/{endDate.getFullYear()}</strong>{post.flexible_end_date ? " (flexible)" : ""}</div>
-              <div><strong>Monthly rent:</strong> ${post.rent}{post.flexible_rent ? " (flexible)" : ""}</div>
+              <div className = "sub-box"><strong>Monthly rent:</strong> ${post.rent}{post.flexible_rent ? " (flexible)" : ""}</div>
               {
                 post.address && (<div className="sub-box"><strong>address</strong>: {post.address}</div>)
               }
@@ -62,27 +74,27 @@ export default function PostPage({ params }) {
             <div className = "purple-box">
               {
                 post.number_of_roommates == 0 && (
-                  <div><strong>No</strong> roomates</div>
+                  <div className="sub-box"><strong>No</strong> roomates</div>
                 )
               }
 
               {
                 post.number_of_roommates == 1 && (
-                  <div><strong>{post.number_of_roommates} roomate </strong>
+                  <div className="sub-box"><strong>{post.number_of_roommates} roomate </strong>
                     (gender identity: {post.roommate_gender}) </div>
                 )
               }
 
               {
                 post.number_of_roommates > 1 && (
-                  <div><strong>{post.number_of_roommates} roomates </strong>
+                  <div className="sub-box"><strong>{post.number_of_roommates} roomates </strong>
                     (gender identity: {post.roommate_gender}) </div>
                 )
               }
 
               {
                 post.number_of_roommates != 1 && (
-                  <div><strong>{post.bedroom_status}</strong> bedroom & <strong>{post.bathroom_status}</strong> bathroom</div>
+                  <div className="sub-box"><strong>{post.bedroom_status}</strong> bedroom & <strong>{post.bathroom_status}</strong> bathroom</div>
                 )
               }
             </div>
@@ -121,19 +133,17 @@ export default function PostPage({ params }) {
               )
             }
 
-{
-              post.photos && (
-                <div className="yellow-box">
-                  <div>
-                    {post.photos.map((base64, index) => (
-                      <img
-                        key={index}
-                        src={`data:image/jpeg;base64,/9j/${base64}`}
-                        alt={`Image ${index}`}
-                        style={{ width: '100px', height: '100px', objectFit: 'cover', margin: '5px' }}
-                      />
-                    ))}
-                  </div>
+            {
+              post.photos && post.photos.length > 1 && (
+                <div className="photo-container">
+                  {post.photos.map((base64, index) => (
+                    <img
+                      key={index}
+                      src={`data:image/jpeg;base64,/9j/${base64}`}
+                      alt={`Image ${index}`}
+                      className="photo"
+                    />
+                  ))}
                 </div>
               )
             }

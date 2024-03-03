@@ -9,9 +9,8 @@ import FilterMenu from './components/filterMenu';
 import { getListingPosts } from './service';
 
 export default function HomePage() {
-  const [isMakingPost, setIsMakingPost] = useState(false);
-  const [reload, setReload] = useState(0);
-  const [listingPosts, setListingPosts] = useState([]);
+  const [isMakingPost, setIsMakingPost] = useState(false)
+  const [listingPosts, setListingPosts] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,25 +22,28 @@ export default function HomePage() {
         console.error('Error fetching data:', error);
       }
     };
-
-    fetchData(); // Call the async function
-  }, [reload]); 
+    fetchData();
+  }, [])
 
   const sortingMethods = {
     "Recency: Newest to oldest": (list) => list.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)),
     "Recency: Oldest to newest": (list) => list.sort((a, b) => new Date(a.created_at) - new Date(b.created_at)),
     "Rent: Lowest to highest": (list) => list.sort((a, b) => a.rent - b.rent),
     "Rent: Highest to lowest": (list) => list.sort((a, b) => b.rent - a.rent)
-  };
+  }
 
   const handleMakePostClick = () => {
     setIsMakingPost(true);
-  };
+  }
 
   const handleMakePostClose = () => {
     setIsMakingPost(false);
-    setReload(reload + 1);
-  };
+  }
+
+  const handleNewPost = (post) => {
+    setListingPosts([...listingPosts, post])
+    setIsMakingPost(false);
+  }
 
   return (
     <>
@@ -50,6 +52,7 @@ export default function HomePage() {
           <Popup handleClose={handleMakePostClose}>
             <MakePost
               handleClose={handleMakePostClose}
+              handleNewPost={handleNewPost}
             />
           </Popup>
         )

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './listingPostCard.css'
 
-function ListingPostCard({ listingPost, handleClick }) {
+function ListingPostCard({ listingPost }) {
   const startDate = new Date(listingPost.start_date)
   const endDate = new Date(listingPost.end_date)
 
@@ -16,7 +16,7 @@ function ListingPostCard({ listingPost, handleClick }) {
 
   return (
     <>
-      <div className="card" onClick={handleClick}>
+      <div className="card">
         <div className = "listing-title">{listingPost.title}</div>
         {
           listingPost.photos && listingPost.photos.length > 0 && (

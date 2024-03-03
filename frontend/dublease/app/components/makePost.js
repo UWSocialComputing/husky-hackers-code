@@ -5,7 +5,7 @@ import Select from 'react-select'
 import './makePost.css'
 import { makeListingPost } from '../service';
 
-function MakePost({handleClose, handleNewPost}) {
+function MakePost({handleClose}) {
   const [title, setTitle] = useState('');
   const [desc, setDesc] = useState('');
   const [name, setName] = useState('');
@@ -99,7 +99,7 @@ function MakePost({handleClose, handleNewPost}) {
   };
 
 
-  const handleMakePost = (e) => {
+  const handleMakePost = async (e) => {
     e.preventDefault();
     console.log('Creating post', { title, name, email, phoneNum, startDate, endDate, rent, neighborhood, addr, numMates, mateGender, bedStatus, bathStatus, pics, other });
     
@@ -111,7 +111,6 @@ function MakePost({handleClose, handleNewPost}) {
       setError('End Date cannot be before Start Date');
       return;
     }
-      // Handle form submission
 
     const post = {
       "title": title,
@@ -142,24 +141,18 @@ function MakePost({handleClose, handleNewPost}) {
     const sendPost = async () => {
       try {
         const response = await makeListingPost(post)
-        if (response.status == 'listing post') {
-          // Success status code
-          // You can access the response data here, e.g., response.json()
+        if (response.status == 'dublease') {
           console.log("Request succeeded");
-
         } else {
-          // Error status code
           console.error("Request failed with status" + response.status);
-          //setError("Unable to Make Request" + response.message + JSON.stringify(post))
         }
       } catch (error) {
         console.error('Error fetching data:', error);
-        //setError(error.message + JSON.stringify(post))
       }
     };
 
-    sendPost();
-    handleNewPost(post);
+    await sendPost();
+    handleClose();
 
     // Reset form fields    
     setTitle('');

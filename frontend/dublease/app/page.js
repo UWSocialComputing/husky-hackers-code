@@ -1,6 +1,7 @@
 'use client';
 import React, {useState, useEffect} from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import Popup from "./components/popup";
 import MakePost from './components/makePost';
 import ListingPostCard from './components/listingPostCard';
@@ -52,6 +53,12 @@ export default function HomePage() {
         </div>
 
         <div className="center-column">
+          <Image 
+            src="/assets/name.png"
+            width={500}
+            height={500}
+            alt="Dublease logo"
+          />
           <div className="card-container">
             {
               listingPosts.map(listingPost => (

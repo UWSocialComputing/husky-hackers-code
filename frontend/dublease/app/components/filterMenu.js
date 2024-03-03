@@ -165,7 +165,7 @@ function FilterMenu({ handleFilter }) {
         <div className="menu-container">
           {
             genderOptions.map((gender) => (
-              <div className="menu-item">
+              <div className="menu-item" key={gender}>
                 <div 
                   className={roomateGenders.includes(gender) ? "filter-box-selected" : "filter-box-unselected"}
                   onClick={() => {
@@ -249,7 +249,7 @@ function FilterMenu({ handleFilter }) {
         <div className="menu-container">
           {
             neighborhoodOptions.map((neighborhood) => (
-              <div className="menu-item">
+              <div className="menu-item" key={neighborhood}>
                 <div 
                   className={neighborhoods.includes(neighborhood) ? "filter-box-selected" : "filter-box-unselected"}
                   onClick={() => {

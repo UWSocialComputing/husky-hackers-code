@@ -162,7 +162,7 @@ function FilterMenu({ handleFilter }) {
       {/* Roomate gender */}
       <div className="filter-item">
         <div>Roomate Gender</div>
-        <div><div className="menu-container">
+        <div className="menu-container">
           {
             genderOptions.map((gender) => (
               <div className="menu-item">
@@ -188,7 +188,7 @@ function FilterMenu({ handleFilter }) {
               </div>
             ))
           }
-        </div></div>
+        </div>
       </div>
 
       <div className="divider"></div>
@@ -196,7 +196,7 @@ function FilterMenu({ handleFilter }) {
       {/* Bedroom status */}
       <div className="filter-item">
         <div>Bedroom</div>
-        <div><div className="menu-container">
+        <div className="menu-container">
           <div className="menu-item">
             <div
               className={privateBedroom ? "filter-box-selected" : "filter-box-unselected"}
@@ -213,7 +213,7 @@ function FilterMenu({ handleFilter }) {
             <div onClick={()=>{setSharedBedroom(!sharedBedroom)}}>Shared</div>
           </div>
   
-        </div></div>
+        </div>
       </div>
 
       <div className="divider"></div>
@@ -221,7 +221,7 @@ function FilterMenu({ handleFilter }) {
       {/* Bathroom status */}
       <div className="filter-item">
         <div>Bathroom</div>
-        <div><div className="menu-container">
+        <div className="menu-container">
           <div className="menu-item">
             <div
               className={privateBathroom ? "filter-box-selected" : "filter-box-unselected"}
@@ -238,7 +238,7 @@ function FilterMenu({ handleFilter }) {
             <div onClick={()=>{setSharedBathroom(!sharedBedroom)}}>Shared</div>
           </div>
   
-        </div></div>
+        </div>
       </div>
 
       <div className="divider"></div>
@@ -246,7 +246,7 @@ function FilterMenu({ handleFilter }) {
       {/* Neighborhood */}
       <div className="filter-item">
         <div>Neighborhood</div>
-        <div><div className="menu-container">
+        <div className="menu-container">
           {
             neighborhoodOptions.map((neighborhood) => (
               <div className="menu-item">
@@ -274,7 +274,7 @@ function FilterMenu({ handleFilter }) {
               </div>
             ))
           }
-        </div></div>
+        </div>
       </div>
 
       <div className="submission-containter">

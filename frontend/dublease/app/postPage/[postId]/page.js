@@ -29,7 +29,6 @@ export default function PostPage({ params }) {
         console.error('Error fetching data:', error);
       }
     };
-
     fetchData();
   }, []); 
 

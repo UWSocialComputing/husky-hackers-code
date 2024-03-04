@@ -67,36 +67,44 @@ function MakePost({handleClose}) {
 
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
+  
+    // Check if all files are JPEG
+    const isAllJpeg = files.every(file => file.type === 'image/jpeg');
+  
+    if (!isAllJpeg) {
+      setError('Please upload only JPEG files.');
+      return;
+    }
+  
     console.log(files);
     setPics(files);
-
+  
     const imagePromises = files.map((file) => {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
-
+  
         reader.onload = (event) => {
           resolve(event.target.result);
         };
-
+  
         reader.onerror = (error) => {
           reject(error);
         };
-
+  
         reader.readAsDataURL(file);
       });
     });
-
+  
     Promise.all(imagePromises)
       .then((base64Images) => {
         setBase64Images([...base64Images]);
         console.log(base64Images);
-
       })
       .catch((error) => {
         console.error('Error reading files:', error);
       });
-
   };
+  
 
 
   const handleMakePost = async (e) => {
@@ -106,9 +114,11 @@ function MakePost({handleClose}) {
     if (!title || !name || !email || !phoneNum || !startDate || !endDate || !rent || !neighborhood 
       || !addr || !numMates || !mateGender || !bedStatus || !bathStatus || !desc) {
       setError('Please fill out all required fields.');
-      return;
     } else if (Date.parse(endDate) < Date.parse(startDate)) {
       setError('End Date cannot be before Start Date');
+    }
+
+    if (error.length > 0) {
       return;
     }
 

@@ -74,15 +74,81 @@ def listing_post():
 
 @app.route('/view_listing_posts', methods=['GET'])
 def all_listing_posts():
-   # posts = db.get_all_posts()
-   # response_data = json.dumps(posts, default=str)
-   # return Response(response=response_data, status=200, content_type='application/json')
+   print("1")
    posts = db.get_all_posts()
+   print("2")
    for post in posts:
+      print("3")
       if 'photos' in post:
          post['photos'] = [base64.b64encode(photo).decode('utf-8') for photo in post['photos']]
          post['photos'] = [photo[24:] for photo in post['photos']]
+   print("4")
    response_data = json.dumps(posts, default=str)
+   print("5")
+   # f = open("test.txt", "a")
+   # f.write(response_data)
+   # f.close()
+   return Response(response=response_data, status=200, content_type='application/json')
+
+@app.route('/view_filtered_listing_posts', methods=['POST'])
+def filtered_listing_posts():
+    
+   body = request.get_json()
+
+   start_date = body.get('start_date')
+   end_date = body.get('end_date')
+   has_photos = body.get('has_photos')
+   start_date_is_flexible = body.get('start_date_is_flexible')
+   end_date_is_flexible = body.get('end_date_is_flexible')
+   rent = body.get('rent')
+   rent_is_flexible = body.get('rent_is_flexible')
+   neighborhood = body.get('neighborhood')
+   number_of_roommates = body.get('number_of_roommates')
+   roommate_gender = body.get('roommate_gender')
+   bedroom_status = body.get('bedroom_status')
+   bathroom_status = body.get('bathroom_status')
+
+   posts = db.get_all_posts()
+
+   filtered_posts = []
+
+   print("request body: ", body)
+   print("has photos: ", has_photos)
+
+   for post in posts:
+      if start_date is not None and post['start_date'] != start_date:
+         continue
+      if end_date is not None and post['end_date'] != end_date:
+         continue
+      if has_photos is not None:
+         if 'photos' not in post or len(post['photos']) == 0:
+            continue
+      if start_date_is_flexible is not None and post['flexible_start_date'] != start_date_is_flexible:
+         continue
+      if end_date_is_flexible is not None and post['flexible_end_date'] != end_date_is_flexible:
+         continue
+      if rent is not None and post['rent'] > rent:
+         continue
+      if rent_is_flexible is not None and post['flexible_rent'] != rent_is_flexible:
+         continue
+      if neighborhood is not None and post['neighborhood'] != neighborhood:
+         continue
+      if number_of_roommates is not None and post['number_of_roommates'] != number_of_roommates:
+         continue
+      if roommate_gender is not None and post.get('roommate_gender') != roommate_gender:
+         continue
+      if bedroom_status is not None and post['bedroom_status'] != bedroom_status:
+         continue
+      if bathroom_status is not None and post['bathroom_status'] != bathroom_status:
+         continue
+      
+      filtered_posts.append(post)
+
+   for post in filtered_posts:
+      if 'photos' in post:
+         post['photos'] = [base64.b64encode(photo).decode('utf-8') for photo in post['photos']]
+         post['photos'] = [photo[24:] for photo in post['photos']]
+   response_data = json.dumps(filtered_posts, default=str)
    # f = open("test.txt", "a")
    # f.write(response_data)
    # f.close()

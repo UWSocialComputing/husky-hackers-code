@@ -115,12 +115,12 @@ def filtered_listing_posts():
          continue
       if end_date is not None and post['end_date'] != end_date:
          continue
-      if has_photos is not None:
+      if has_photos is not None and has_photos == True:
          if 'photos' not in post or len(post['photos']) == 0:
             continue
-      if start_date_is_flexible is not None and post['flexible_start_date'] != start_date_is_flexible:
+      if start_date_is_flexible is not None and start_date_is_flexible == True and post['flexible_start_date'] != True:
          continue
-      if end_date_is_flexible is not None and post['flexible_end_date'] != end_date_is_flexible:
+      if end_date_is_flexible is not None and end_date_is_flexible == True and post['flexible_end_date'] != True:
          continue
       if rent is not None and post['rent'] > rent:
          continue

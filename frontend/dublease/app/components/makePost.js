@@ -32,12 +32,14 @@ function MakePost({handleClose}) {
   const [tags, setTags] = useState([]);
   const [error, setError] = useState('');
 
+  // list of popular tags for users to choose from
   const popularTagOptions = [
     { value: 'pet-friendly', label: 'pet-friendly' },
     { value: 'non-smoking', label: 'non-smoking' }
   ]
   
 
+  // Functionality for adding and removing tags
   function TagsInput(){
 
     function handleKeyDown(e){
@@ -65,6 +67,8 @@ function MakePost({handleClose}) {
     )
   }
 
+  // Functionality for parsing through uploaded files and
+  // converting to base64 */
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
   
@@ -107,13 +111,16 @@ function MakePost({handleClose}) {
   
 
 
+  // make post function
   const handleMakePost = async (e) => {
     e.preventDefault();
     console.log('Creating post', { title, name, email, phoneNum, startDate, endDate, rent, neighborhood, addr, numMates, mateGender, bedStatus, bathStatus, pics, other });
     
+    // error check that all required fields are not null/empty
     if (!title || !name || !email || !phoneNum || !startDate || !endDate || !rent || !neighborhood 
       || !addr || !numMates || !mateGender || !bedStatus || !bathStatus || !desc) {
       setError('Please fill out all required fields.');
+    // error check that endDate is valid (after specified startDate)
     } else if (Date.parse(endDate) < Date.parse(startDate)) {
       setError('End Date cannot be before Start Date');
     }
@@ -122,6 +129,7 @@ function MakePost({handleClose}) {
       return;
     }
 
+    // creating JSON post to send to backend
     const post = {
       "title": title,
       "description": desc,
@@ -148,6 +156,7 @@ function MakePost({handleClose}) {
       "photos": base64Images,
     }
     
+    // sending post to backend
     const sendPost = async () => {
       try {
         const response = await makeListingPost(post)
@@ -192,6 +201,7 @@ function MakePost({handleClose}) {
     setError('');
   }
 
+  // render all input fields for make post
   return (
     <div class="post-form">
       <div className="title"><strong>{"Create a Sublease Post"}</strong></div>
@@ -482,6 +492,7 @@ function MakePost({handleClose}) {
           />  
         </div>
       </form>
+      {/*displaying error message here*/}
       {error && <p style={{ color: 'red' }}>{<strong>{error}</strong>}</p>}
       <div className="submitButton">
           <button type="button"

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './listingPostCard.css'
 
+// Card component for displaying listing posts in feed
 function ListingPostCard({ listingPost }) {
   const startDate = new Date(listingPost.start_date)
   const endDate = new Date(listingPost.end_date)
@@ -18,6 +19,8 @@ function ListingPostCard({ listingPost }) {
     <>
       <div className="card">
         <div className = "listing-title">{listingPost.title}</div>
+
+        {/* Photos */}
         {
           listingPost.photos && listingPost.photos.length > 0 && (
               <div className="card-photo-container">
@@ -28,12 +31,15 @@ function ListingPostCard({ listingPost }) {
               </div>
           )
         }
+
+        {/* Lease information */}
         <div className = "yellow-box">
           <div><strong>{startDate.getMonth()+1}/{startDate.getDate()}/{startDate.getFullYear()}</strong>{listingPost.flexible_start_date ? " (flexible) " : " "}to <strong>
               {endDate.getMonth()+1}/{endDate.getDate()}/{endDate.getFullYear()}</strong>{listingPost.flexible_end_date ? " (flexible)" : ""}</div>
           <div><strong>Monthly rent:</strong> ${listingPost.rent}{listingPost.flexible_rent ? " (flexible)" : ""}</div>
         </div>
 
+        {/* Roomate information */}
         <div className = "purple-box">
           {
             listingPost.number_of_roommates == 0 && (
@@ -62,6 +68,7 @@ function ListingPostCard({ listingPost }) {
           }
         </div>
 
+        {/* Neighborhood and other tags */}
         <div className="tags">
           {
             listingPost.neighborhood != "Other" && (
@@ -71,12 +78,12 @@ function ListingPostCard({ listingPost }) {
             )
           }
 
-
           {listingPost.optional_tags ? listingPost.optional_tags.map(optionalTag => (
               <div className="opt-tag" key={optionalTag}>{optionalTag}</div>
           )) : null}
         </div>
 
+        {/* Button to open new window */}
         <div>
           <div className="learn-more">learn more</div>
         </div>

@@ -1,15 +1,11 @@
 const { list } = require("postcss");
 
-const baseURL = "http://127.0.0.1:5000"
+const baseURL = "http://127.0.0.1:8080"
 
 const RouteGenerator = {
   makeListingPost: () => encodeURI(`${baseURL}/make_listing_post`),
   getListingPosts: () => encodeURI(`${baseURL}/view_listing_posts`),
-  searchListingPosts: (filters) => encodeURI(`${baseURL}/<endpoint>`),
-
-  makeTenantPost: (tenantPost) => encodeURI(`${baseURL}/<endpoint>`),
-  getTenantPosts: () => encodeURI(`${baseURL}/<endpoint>`),
-  searchTenantPosts: (filters) => encodeURI(`${baseURL}/<endpoint>`)
+  filterListingPosts: () => encodeURI(`${baseURL}/view_filtered_listing_posts`),
 }
 
 const GET = async (route) => {
@@ -55,23 +51,11 @@ const getListingPosts = async (...args) => {
   return await GET(RouteGenerator.getListingPosts(...args.map(arg => arg.trim())));
 }
 
-const searchListingPosts = async (...args) => {
-  return await GET(RouteGenerator.searchListingPosts(...args.map(arg => arg.trim())));
+const filterListingPosts = async (filterRequest) => {
+  return await POST(RouteGenerator.filterListingPosts(), JSON.stringify(filterRequest));
 }
 
-const makeTenantPost = async (...args) => {
-  return await POST(RouteGenerator.makeTenantPost(...args.map(arg => arg.trim())));
-}
-
-const getTenantPosts = async (...args) => {
-  return await GET(RouteGenerator.getTenantPosts(...args.map(arg => arg.trim())));
-}
-
-const searchTenantPosts = async (...args) => {
-  return await GET(RouteGenerator.searchTenantPosts(...args.map(arg => arg.trim())));
-}
 
 module.exports = {
-  makeListingPost, getListingPosts, searchListingPosts,
-  makeTenantPost, getTenantPosts, searchListingPosts
+  makeListingPost, getListingPosts, filterListingPosts
 }

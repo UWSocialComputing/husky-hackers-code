@@ -7,7 +7,7 @@ import MakePost from './components/makePost';
 import ListingPostCard from './components/listingPostCard';
 import SortingMenu from './components/sortingMenu';
 import FilterMenu from './components/filterMenu';
-import { getListingPosts } from './service';
+import { getListingPosts, filterListingPosts } from './service';
 
 export default function HomePage() {
   const [isMakingPost, setIsMakingPost] = useState(false)
@@ -49,14 +49,22 @@ export default function HomePage() {
       <div className="app">
 
         <div className="left-column filters">
-          <FilterMenu/>
+          <FilterMenu handleFilter={async (filterRequest) => {
+            try {
+              const response = await filterListingPosts(filterRequest)
+              setListingPosts(sortingMethods[sortingCriteria](response));
+              console.log(response)
+            } catch (error) {
+              console.error('Error fetching data:', error);
+            }
+          }}/>
         </div>
 
         <div className="center-column">
           <Image 
             src="/assets/name.png"
             width={500}
-            height={500}
+            height={80}
             alt="Dublease logo"
           />
           <div className="card-container">

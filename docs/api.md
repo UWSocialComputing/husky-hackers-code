@@ -135,7 +135,7 @@ This API provides services related to dublease. The API allows for creating post
   ]
 
 
-### 2. view_filtered_listing_posts
+### 3. view_filtered_listing_posts
 
 - **Endpoint**: `/view_filtered_listing_posts`
 - **Method**: `POST`
@@ -215,3 +215,46 @@ This API provides services related to dublease. The API allows for creating post
       "date_posted": "datetime obj",
     }
   ]
+
+
+### 4. get_post_by_id
+
+- **Endpoint**: `/get_post_by_id`
+- **Method**: `GET`
+- **Description**: Retrieves the alt text with the given ID.
+- **Query Parameters**:
+    - `id` (string): The ID of the post.
+
+- **Response**:
+    - Success: The post JSON.
+    - Failure: An error message detailing the cause of the failure.
+
+- **Response Example**:
+  ```json
+  {
+    "title": "XX",
+    "description": "XX",
+    "name": "XX",
+    "email": "XX",
+    "phone_number": "XX",
+    "start_date": "datetime obj",
+    "flexible_start_date": true,
+    "end_date": "datetime obj",
+    "flexible_end_date": true,
+    "photos_link": "XX",
+    "rent": 0,
+    "flexible_rent": true,
+    "neighborhood": "XX",
+    "address": "XX",
+    "number_of_roommates": 0,
+    "roommate_gender": "XX",
+    "bedroom_status": "XX",
+    "bathroom_status": "XX",
+    "optional_tags": ["XX", "YY"],
+    "prompt_question": "XX",
+    "prompt_answer": "XX",
+    "other_details": "XX",
+    "photos": ["XX", "YY"],
+    "_id": 0,
+    "date_posted": "datetime obj",
+  }

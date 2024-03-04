@@ -74,17 +74,12 @@ def listing_post():
 
 @app.route('/view_listing_posts', methods=['GET'])
 def all_listing_posts():
-   print("1")
    posts = db.get_all_posts()
-   print("2")
    for post in posts:
-      print("3")
       if 'photos' in post:
          post['photos'] = [base64.b64encode(photo).decode('utf-8') for photo in post['photos']]
          post['photos'] = [photo[24:] for photo in post['photos']]
-   print("4")
    response_data = json.dumps(posts, default=str)
-   print("5")
    # f = open("test.txt", "a")
    # f.write(response_data)
    # f.close()
@@ -154,5 +149,13 @@ def filtered_listing_posts():
    # f.close()
    return Response(response=response_data, status=200, content_type='application/json')
 
+@app.route('/get_post_by_id', methods=['GET'])
+def find_post():
+   # get the id query param
+   id = request.args.get('id')
+   post = db.get_post_by_id(id)
+   response_data = json.dumps(post, default=str)
+   return Response(response=response_data, status=200, content_type='application/json')
+
 if __name__ == '__main__':
-   app.run()
+   app.run(port=8080)

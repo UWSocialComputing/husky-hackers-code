@@ -7,12 +7,13 @@ import MakePost from './components/makePost';
 import ListingPostCard from './components/listingPostCard';
 import SortingMenu from './components/sortingMenu';
 import FilterMenu from './components/filterMenu';
-import { getListingPosts, filterListingPosts } from './service';
+import { filterListingPosts } from './service';
 
 export default function HomePage() {
   const [isMakingPost, setIsMakingPost] = useState(false)
   const [listingPosts, setListingPosts] = useState([])
   const [sortingCriteria, setSortingCriteria] = useState("Recency: Newest to oldest")
+  const [currentFilter, setCurrentFilter] = useState({})
 
   const sortingMethods = {
     "Recency: Newest to oldest": (list) => list.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)),
@@ -24,7 +25,7 @@ export default function HomePage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await getListingPosts()
+        const response = await filterListingPosts(currentFilter)
         setListingPosts(sortingMethods[sortingCriteria](response));
         console.log(response)
       } catch (error) {
@@ -32,10 +33,11 @@ export default function HomePage() {
       }
     };
     fetchData();
-  }, [isMakingPost])
+  }, [isMakingPost, currentFilter])
 
   return (
     <>
+      {/* Popup window for making post */}
       {
         isMakingPost && (
           <Popup handleClose={() => {setIsMakingPost(false)}}>
@@ -48,18 +50,12 @@ export default function HomePage() {
     
       <div className="app">
 
+        {/* Filter column */}
         <div className="left-column filters">
-          <FilterMenu handleFilter={async (filterRequest) => {
-            try {
-              const response = await filterListingPosts(filterRequest)
-              setListingPosts(sortingMethods[sortingCriteria](response));
-              console.log(response)
-            } catch (error) {
-              console.error('Error fetching data:', error);
-            }
-          }}/>
+          <FilterMenu handleFilter={(filterRequest) => {setCurrentFilter(filterRequest)}}/>
         </div>
 
+        {/* Center feed */}
         <div className="center-column">
           <Image 
             src="/assets/name.png"
@@ -80,6 +76,7 @@ export default function HomePage() {
           </div>
         </div>
         
+        {/* Sorting column */}
         <div className="right-column sorting">
           <SortingMenu
             sortingOptions={["Recency: Newest to oldest", "Recency: Oldest to newest",
@@ -90,6 +87,7 @@ export default function HomePage() {
             }}
           />
 
+          {/* Make post button */}
           <button className="floating-button" onClick={() => {setIsMakingPost(true)}}>
             Make Post <strong>+</strong>
           </button>

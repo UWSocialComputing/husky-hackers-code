@@ -2,6 +2,7 @@
 import './sortingMenu.css';
 import React, { useState } from 'react';
 
+// Menu for sorting posts
 function SortingMenu({ handleSortingChange, sortingOptions }) {
   const [selection, setSelection] = useState(sortingOptions[0])
 

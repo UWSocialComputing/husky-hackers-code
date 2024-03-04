@@ -2,6 +2,7 @@
 import './filterMenu.css';
 import React, { useState } from 'react';
 
+// Menu for filtering listing posts
 function FilterMenu({ handleFilter }) { 
   const genderOptions = ["All Men", "All Women", "Mixed", "Other"]
   const neighborhoodOptions = ["U Village", "North Campus", "West Campus/Ave", "Greenlake",
@@ -34,6 +35,7 @@ function FilterMenu({ handleFilter }) {
   const [neighborhoods, setNeighborhoods] = useState(neighborhoodOptions);
   const [hasPhotos, setHasPhotos] = useState(false);
 
+  // Method for when filters are cleared
   const handleClear = () => {
     setStartDate('')
     setStartDateFlexible(false)
@@ -55,6 +57,7 @@ function FilterMenu({ handleFilter }) {
     handleFilter({})
   };
 
+  // Method for when filters are applied
   const handleApply = () => {
     let bedroomStatus = []
     if (privateBedroom) { bedroomStatus.push("Private") }

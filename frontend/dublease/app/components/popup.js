@@ -1,6 +1,7 @@
 import './popup.css';
 import React from 'react';
 
+// Popup window component
 function Popup({ handleClose, children }) {
   return (
     <div className="popup">

@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from bson.binary import Binary
+from bson.objectid import ObjectId
 import bson
 
 load_dotenv()
@@ -55,3 +56,5 @@ def make_listing_post(title: str, name: str, email: str, start_date: datetime, f
         "photos": photos
     })
     
+def get_post_by_id(id: str) -> dict:
+    return listings_collection.find_one({"_id": ObjectId(id)})

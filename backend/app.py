@@ -126,15 +126,15 @@ def filtered_listing_posts():
          continue
       if rent_is_flexible is not None and post['flexible_rent'] != rent_is_flexible:
          continue
-      if neighborhood is not None and post['neighborhood'] != neighborhood:
+      if neighborhood is not None and post['neighborhood'] not in neighborhood:
          continue
       if number_of_roommates is not None and post['number_of_roommates'] != number_of_roommates:
          continue
       if roommate_gender is not None and post.get('roommate_gender') != roommate_gender:
          continue
-      if bedroom_status is not None and post['bedroom_status'] != bedroom_status:
+      if bedroom_status is not None and post['bedroom_status'] not in bedroom_status:
          continue
-      if bathroom_status is not None and post['bathroom_status'] != bathroom_status:
+      if bathroom_status is not None and post['bathroom_status'] not in bathroom_status:
          continue
       
       filtered_posts.append(post)

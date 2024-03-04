@@ -3,8 +3,8 @@ import './filterMenu.css';
 import React, { useState } from 'react';
 
 function FilterMenu({ handleFilter }) { 
-  const genderOptions = ["Men", "Women", "Other"]
-  const neighborhoodOptions = ["U Village", "West Campus/Ave", "Greenlake",
+  const genderOptions = ["All Men", "All Women", "Mixed", "Other"]
+  const neighborhoodOptions = ["U Village", "North Campus", "West Campus/Ave", "Greenlake",
    "Roosevelt/Northgate", "Cap Hill/Downtown", "Other"]
 
   const neighborhoodColorMapping = {
@@ -18,8 +18,11 @@ function FilterMenu({ handleFilter }) {
   }
   
   const [startDate, setStartDate] = useState('');
+  const [startDateFlexible, setStartDateFlexible] = useState(false);
   const [endDate, setEndDate] = useState('');
+  const [endDateFlexible, setEndDateFlexible] = useState(false);
   const [maxRent, setMaxRent] = useState(1000);
+  const [rentFlexible, setRentFlexible] = useState(false);
   const [isMaxRent, setIsMaxRent] = useState(false);
   const [numRoomates, setNumRoomates] = useState(1);
   const [isNumRoomates, setIsNumRoomates] = useState(false);
@@ -29,12 +32,16 @@ function FilterMenu({ handleFilter }) {
   const [privateBathroom, setPrivateBathroom] = useState(true);
   const [sharedBathroom, setSharedBathroom] = useState(true);
   const [neighborhoods, setNeighborhoods] = useState(neighborhoodOptions);
+  const [hasPhotos, setHasPhotos] = useState(false);
 
   const handleClear = () => {
     setStartDate('')
+    setStartDateFlexible(false)
     setEndDate('')
+    setEndDateFlexible(false)
     setMaxRent(1000)
     setIsMaxRent(false)
+    setRentFlexible(false)
     setNumRoomates(1)
     setIsNumRoomates(false)
     setRoomateGenders(genderOptions)
@@ -43,10 +50,38 @@ function FilterMenu({ handleFilter }) {
     setPrivateBathroom(true)
     setSharedBathroom(true)
     setNeighborhoods(neighborhoodOptions)
+    setHasPhotos(false)
+
+    handleFilter({})
   };
 
   const handleApply = () => {
-    
+    let bedroomStatus = []
+    if (privateBedroom) { bedroomStatus.push("Private") }
+    if (sharedBedroom) { bedroomStatus.push("Shared") }
+
+    let bathroomStatus = []
+    if (privateBathroom) { bathroomStatus.push("Private") }
+    if (sharedBathroom) { bathroomStatus.push("Shared") }
+
+    const filterRequest = {
+      start_date_is_flexible: startDateFlexible,
+      end_date_is_flexible: endDateFlexible,
+      has_photos: hasPhotos,
+      neighborhood: neighborhoods,
+      roomate_gender: roomateGenders,
+      bedroom_status: bedroomStatus,
+      bathroom_status: bathroomStatus
+    }
+
+    if (startDate.length > 0) { filterRequest["start_date"] = startDate }
+    if (endDate.length > 0) { filterRequest["end_date"] = endDate }
+    if (isMaxRent) { filterRequest["rent"] = maxRent }
+    if (isNumRoomates) {filterRequest["number_of_roomates"] = numRoomates}
+    if (rentFlexible) { filterRequest["rent_is_flexible"] = true }
+
+    console.log(`FILTERING ${JSON.stringify(filterRequest)}`)
+    handleFilter(filterRequest)
   };
 
   return (
@@ -62,7 +97,16 @@ function FilterMenu({ handleFilter }) {
           onChange={(e) => setStartDate(e.target.value)}
           className="filter-input"
         />
+        <div className="subcontainer">
+          <div 
+            className={startDateFlexible ? "filter-box-selected" : "filter-box-unselected"}
+            onClick={() => {setStartDateFlexible(!startDateFlexible)}}
+          ></div>
+          <div onClick={() => {setStartDateFlexible(!startDateFlexible)}}>Must be flexible</div>
+        </div>
       </div>
+
+      <div className="divider"></div>
 
       {/* End date */}
       <div className="filter-item">
@@ -73,6 +117,13 @@ function FilterMenu({ handleFilter }) {
           onChange={(e) => setEndDate(e.target.value)}
           className="filter-input"
         />
+        <div className="subcontainer">
+          <div 
+            className={endDateFlexible ? "filter-box-selected" : "filter-box-unselected"}
+            onClick={() => {setEndDateFlexible(!endDateFlexible)}}
+          ></div>
+          <div onClick={() => {setEndDateFlexible(!endDateFlexible)}}>Must be flexible</div>
+        </div>
       </div>
 
       <div className="divider"></div>
@@ -120,6 +171,14 @@ function FilterMenu({ handleFilter }) {
             </div>
           )
         }
+
+        <div className="subcontainer">
+          <div 
+            className={rentFlexible ? "filter-box-selected" : "filter-box-unselected"}
+            onClick={() => {setRentFlexible(!rentFlexible)}}
+          ></div>
+          <div onClick={() => {setRentFlexible(!rentFlexible)}}>Must be flexible</div>
+        </div>
       </div>
 
       <div className="divider"></div>
@@ -274,6 +333,19 @@ function FilterMenu({ handleFilter }) {
               </div>
             ))
           }
+        </div>
+      </div>
+
+      <div className="divider"></div>
+
+      {/* Photos */}
+      <div className="filter-item">
+        <div className="subcontainer">
+          <div 
+            className={hasPhotos ? "filter-box-selected" : "filter-box-unselected"}
+            onClick={() => {setHasPhotos(!hasPhotos)}}
+          ></div>
+          <div onClick={() => {setHasPhotos(!hasPhotos)}}>Must have photos</div>
         </div>
       </div>
 

@@ -148,11 +148,11 @@ This API provides services related to dublease. The API allows for creating post
   - `end_date_is_flexible` (boolean, optional): filter by posts with flexible end dates
   - `rent` (int, optional): filter by posts where rent is the maximum rent, inclusive
   - `rent_is_flexible` (boolean, optional): filter by posts with flexible rent
-  - `neighborhood` (string, optional): filter by posts with flexible rent
+  - `neighborhood` (list[string], optional): filter by posts with flexible rent
   - `number_of_roommates` (int, optional): filter by posts where number_of_roommates is the maximum number of roommates, inclusive
   - `roommate_gender` (string, optional): roommate gender filter
-  - `bedroom_status` (string, optional): bedroom status filter
-  - `bathroom_status` (string, optional): bathroom status filter
+  - `bedroom_status` (list[string], optional): bedroom status filter
+  - `bathroom_status` (list[string], optional): bathroom status filter
 
 - **Response**:
     - Success: An array of dictionaries containing the data for each listing post.
